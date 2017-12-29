@@ -27,7 +27,7 @@ public class productnamedelete {
 	static ResultSet rs;
 	static JComboBox<String> comboBox;
 	String name;
-	DefaultComboBoxModel item;
+	DefaultComboBoxModel<String> item;
 	int index;
 
 	/**
@@ -104,7 +104,7 @@ public class productnamedelete {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER)
 				{
 					name = comboBox.getSelectedItem().toString();
-					item = (DefaultComboBoxModel) comboBox.getModel();
+					item = (DefaultComboBoxModel<String>) comboBox.getModel();
 					index = comboBox.getSelectedIndex();
 					try
 					{
@@ -130,7 +130,7 @@ public class productnamedelete {
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				name = comboBox.getSelectedItem().toString();
-				item = (DefaultComboBoxModel) comboBox.getModel();
+				item = (DefaultComboBoxModel<String>) comboBox.getModel();
 				index = comboBox.getSelectedIndex();
 				try
 				{
