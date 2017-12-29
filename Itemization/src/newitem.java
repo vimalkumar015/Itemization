@@ -275,7 +275,7 @@ public class newitem {
 		JLabel lblPurity = new JLabel("Purity");
 
 		comboBox_1 = new JComboBox<String>();
-		comboBox_1.setModel(new DefaultComboBoxModel<String>(new String[] { "Regular", "KDM" }));
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Regular", "KDM", "Silver", "92M-Silver"}));
 
 		GroupLayout groupLayout = new GroupLayout(frmItemizationNew.getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -293,8 +293,8 @@ public class newitem {
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(textField, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE)
 								.addComponent(comboBox_Location, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(47)
 							.addComponent(label))
