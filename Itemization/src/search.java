@@ -121,7 +121,7 @@ public class search {
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER)
 				{
-					searchbypurity.main(null);
+					searchbypuritynavi.main(null);
 					frmItemizationSearch.dispose();
 				}else if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
 				{
@@ -132,7 +132,7 @@ public class search {
 		});
 		btnSearchByPurity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				searchbypurity.main(null);
+				searchbypuritynavi.main(null);
 				frmItemizationSearch.dispose();
 			}
 		});

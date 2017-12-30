@@ -24,16 +24,16 @@ import javax.swing.DefaultComboBoxModel;
  *
  * @author NirmalGds
  */
-public class searchbypurity extends javax.swing.JFrame {
+public class searchbysilverpurity extends javax.swing.JFrame {
     MessageFormat header;
     String purity = null;
     String from = null;
     /**
      * Creates new form searchbypurity
      */
-    public searchbypurity() {
-    	setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\NirmalGds\\Downloads\\itemization_logo.png"));
-    	setTitle("ITEMIZATION - Search by Purity (Gold)");
+    public searchbysilverpurity() {
+    	setIconImage(Toolkit.getDefaultToolkit().getImage(searchbysilverpurity.class.getResource("/images/itemization_logo.png")));
+    	setTitle("ITEMIZATION - Search by Purity (Silver)");
     	getContentPane().setBackground(new Color(176, 224, 230));
         initComponents();
     }
@@ -53,7 +53,6 @@ public class searchbypurity extends javax.swing.JFrame {
         jScrollPane1.setEnabled(false);
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jButton1.setEnabled(false);
         jButton2 = new javax.swing.JButton();
         jComboBox2 = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
@@ -62,7 +61,7 @@ public class searchbypurity extends javax.swing.JFrame {
 
         jLabel1.setText("Filter By");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None", "Regular", "KDM" }));
+        jComboBox1.setModel(new DefaultComboBoxModel(new String[] {"None", "Silver", "92M-Silver"}));
         jComboBox1.setAutoscrolls(true);
         jComboBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jComboBox1.setEditor(null);
@@ -177,13 +176,13 @@ public class searchbypurity extends javax.swing.JFrame {
     }// </editor-fold>                        
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-    	searchbypuritynavi.main(null);
+        searchbypuritynavi.main(null);
     	this.dispose();
     }                                        
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {                                           
        purity = jComboBox1.getSelectedItem().toString();
-       if(purity != null && from != null)
+       if(purity.length() != 0 && from.length() != 0)
        {
        	if(from == "In Stock")
        	{
@@ -291,7 +290,7 @@ public class searchbypurity extends javax.swing.JFrame {
     private void jComboBox2KeyPressed(java.awt.event.KeyEvent evt) {                                      
         if(evt.getKeyCode() == KeyEvent.VK_ENTER)
         {
-        	if(purity != null && from != null)
+        	if(purity.length() != 0 && from.length() != 0)
             {
             	if(from == "In Stock")
             	{
@@ -338,7 +337,7 @@ public class searchbypurity extends javax.swing.JFrame {
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {                                           
         from = jComboBox2.getSelectedItem().toString();
-        if(purity != null && from != null)
+        if(purity.length() != 0 && from.length() != 0)
         {
         	if(from == "In Stock")
         	{
@@ -381,7 +380,7 @@ public class searchbypurity extends javax.swing.JFrame {
     private void jComboBox1KeyPressed(java.awt.event.KeyEvent evt) {                                      
     	if(evt.getKeyCode() == KeyEvent.VK_ENTER)
         {
-        	if(purity != null && from != null)
+    		 if(purity.length() != 0 && from.length() != 0)
             {
             	if(from == "In Stock")
             	{
@@ -443,20 +442,20 @@ public class searchbypurity extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(searchbypurity.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(searchbysilverpurity.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(searchbypurity.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(searchbysilverpurity.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(searchbypurity.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(searchbysilverpurity.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(searchbypurity.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(searchbysilverpurity.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new searchbypurity().setVisible(true);
+                new searchbysilverpurity().setVisible(true);
             }
         });
     }
