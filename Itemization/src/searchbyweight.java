@@ -12,13 +12,16 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class searchbyweight {
 
 	private JFrame frmItemizationSearch;
 	private JTextField textField;
 	static Double weight;
-
+	static String type;
+	JComboBox comboBox; 
 	/**
 	 * Launch the application.
 	 */
@@ -61,7 +64,7 @@ public class searchbyweight {
 				if(vchar == KeyEvent.VK_ENTER)
 		        {
 		        	weight = Double.parseDouble(textField.getText());
-					searchbyweightresult.main(weight);
+					searchbyweightresult.main(weight,type);
 					frmItemizationSearch.dispose();
 		        }else if((Character.isDigit(vchar))||(vchar==KeyEvent.VK_PERIOD)||(vchar==KeyEvent.VK_BACK_SPACE)){
 		            if(vchar==KeyEvent.VK_PERIOD){ 
@@ -85,7 +88,7 @@ public class searchbyweight {
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 					weight = Double.parseDouble(textField.getText());
-					searchbyweightresult.main(weight);
+					searchbyweightresult.main(weight,type);
 					frmItemizationSearch.dispose();
 				}else if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
 				{
@@ -96,9 +99,10 @@ public class searchbyweight {
 			}
 		});
 		btnSearch.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
 				weight = Double.parseDouble(textField.getText());
-				searchbyweightresult.main(weight);
+				type = comboBox.getSelectedItem().toString(); 
+				searchbyweightresult.main(weight,type);
 				frmItemizationSearch.dispose();
 			}
 		});
@@ -123,22 +127,31 @@ public class searchbyweight {
 				frmItemizationSearch.dispose();
 			}
 		});
+		
+		JLabel lblItemType = new JLabel("Item Type");
+		
+		comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Gold", "Silver"}));
 		GroupLayout groupLayout = new GroupLayout(frmItemizationSearch.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(36)
-							.addComponent(lblEnterTheWeight)
-							.addGap(18)
-							.addComponent(textField, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(136)
 							.addComponent(btnSearch)
 							.addGap(39)
-							.addComponent(btnBack)))
-					.addContainerGap(105, Short.MAX_VALUE))
+							.addComponent(btnBack))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(36)
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addComponent(lblItemType)
+								.addComponent(lblEnterTheWeight))
+							.addGap(18)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(textField, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE))))
+					.addContainerGap(133, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -147,7 +160,11 @@ public class searchbyweight {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblEnterTheWeight)
 						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(82)
+					.addGap(30)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblItemType)
+						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(38)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnSearch)
 						.addComponent(btnBack))

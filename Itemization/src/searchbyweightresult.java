@@ -25,15 +25,18 @@ import java.awt.Color;
  */
 public class searchbyweightresult extends javax.swing.JFrame {
     static Double mainweight;
+    static String itype;
 
     /**
      * Creates new form searchbyweightresult
      */
     public void updatetable(){
+    	if(itype=="Gold")
+    	{
         try {
             Class.forName("com.mysql.jdbc.Driver");
            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
-           PreparedStatement pst = conn.prepareStatement("SELECT `id` as ID, `product_name` as PRODUCT, `Purity` as PURITY, `location` as LOCATION, `gross_weight` as `GROSS WEIGHT`, date(`date&time`) as `CREATED ON` FROM `stocklist` WHERE gross_weight = ? and flag = 1");
+           PreparedStatement pst = conn.prepareStatement("SELECT `id` as ID, `product_name` as PRODUCT, `Purity` as PURITY, `location` as LOCATION, `gross_weight` as `GROSS WEIGHT`, date(`date&time`) as `CREATED ON` FROM `stocklist` WHERE (Purity = \"Regular\" or Purity = \"KDM\") and gross_weight = ? and flag = 1");
            pst.setDouble(1, mainweight);
            ResultSet rs = pst.executeQuery();
            if(rs != null)
@@ -45,6 +48,24 @@ public class searchbyweightresult extends javax.swing.JFrame {
         {
             e.printStackTrace();
         }
+    	}else if(itype=="Silver")
+    	{
+    		try {
+                Class.forName("com.mysql.jdbc.Driver");
+               Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
+               PreparedStatement pst = conn.prepareStatement("SELECT `id` as ID, `product_name` as PRODUCT, `Purity` as PURITY, `location` as LOCATION, `gross_weight` as `GROSS WEIGHT`, date(`date&time`) as `CREATED ON` FROM `stocklist` WHERE (Purity = \"Silver\" or Purity = \"92M-Silver\") and gross_weight = ? and flag = 1");
+               pst.setDouble(1, mainweight);
+               ResultSet rs = pst.executeQuery();
+               if(rs != null)
+            {
+               jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+            }
+             }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+    	}
     }
     public searchbyweightresult() {
     	getContentPane().setBackground(new Color(176, 224, 230));
@@ -186,7 +207,7 @@ public class searchbyweightresult extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(Double weight) {
+    public static void main(Double weight,String type) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -214,6 +235,7 @@ public class searchbyweightresult extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 mainweight = weight;
+                itype=type;
                 new searchbyweightresult().setVisible(true);
             }
         });
