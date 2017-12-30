@@ -47,6 +47,17 @@ public class instocklist extends javax.swing.JFrame {
      * Creates new form instocklist
      * @throws SQLException 
      */
+	private void jButton2KeyPressed(java.awt.event.KeyEvent evt) {
+		if(evt.getKeyCode() == KeyEvent.VK_BACK_SPACE)
+    	{
+    		search.main(null);
+    		this.dispose();
+    	}else if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+    	{
+    		search.main(null);
+    		this.dispose();
+    	}
+	}
 	private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {                                    
     	if(evt.getKeyCode() == KeyEvent.VK_BACK_SPACE)
     	{
@@ -227,6 +238,11 @@ public class instocklist extends javax.swing.JFrame {
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+        jButton2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton2KeyPressed(evt);
             }
         });
 
