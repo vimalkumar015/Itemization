@@ -14,6 +14,7 @@ import javax.swing.GroupLayout.Alignment;
 import com.mysql.jdbc.Connection;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import java.awt.Toolkit;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -33,7 +34,7 @@ public class newitem {
 	static JComboBox<String> comboBox;
 	static JComboBox<String> comboBox_Location;
 	static JComboBox<String> comboBox_1;
-	private JTextField textField;
+	private JTextField txtNull;
 	static int oldid;
 	static int id;
 	static DateFormat dateform;
@@ -121,10 +122,39 @@ public class newitem {
 		JLabel lblLocation = new JLabel("Location");
 
 		comboBox = new JComboBox<String>();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {""}));
 		comboBox.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
+			public void keyPressed(KeyEvent evt) {
+				if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+				{
+					if(comboBox.getSelectedItem().toString().length() == 0 || comboBox_1.getSelectedItem().toString().length() == 0 || comboBox_Location.getSelectedItem().toString().length() == 0 || txtNull.getText().length() == 0 )
+					{
+						JOptionPane.showMessageDialog(null, "Fields cannot be empty");
+					}
+					else
+					{
+						try {
+						Class.forName("com.mysql.jdbc.Driver");
+						Connection con = (Connection) DriverManager
+								.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false", "root", "");
+						PreparedStatement stmt = con.prepareStatement(
+								"INSERT INTO stocklist(id,product_name,purity,location,gross_weight,flag) VALUES (?,?,?,?,?,?)");
+						stmt.setInt(1, id );
+						stmt.setString(2, comboBox.getSelectedItem().toString());
+						stmt.setString(3, comboBox_1.getSelectedItem().toString());
+						stmt.setString(4, comboBox_Location.getSelectedItem().toString());
+						stmt.setDouble(5, Double.parseDouble(txtNull.getText()));
+						stmt.setInt(6, 1);
+						stmt.execute();
+					} catch (Exception e) {
+
+						e.printStackTrace();
+					}
+					updateconfirmation.main(id);
+					frmItemizationNew.dispose();
+					}
+				}else if(evt.getKeyCode() == KeyEvent.VK_BACK_SPACE)
 				{
 					HomePage.main(null);
 					frmItemizationNew.dispose();
@@ -133,19 +163,59 @@ public class newitem {
 		});
 
 		comboBox_Location = new JComboBox<String>();
+		comboBox_Location.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent evt) {
+				if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+				{
+					if(comboBox.getSelectedItem().toString().length() == 0 || comboBox_1.getSelectedItem().toString().length() == 0 || comboBox_Location.getSelectedItem().toString().length() == 0 || txtNull.getText().length() == 0 )
+					{
+						JOptionPane.showMessageDialog(null, "Fields cannot be empty");
+					}
+					else
+					{
+						try {
+						Class.forName("com.mysql.jdbc.Driver");
+						Connection con = (Connection) DriverManager
+								.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false", "root", "");
+						PreparedStatement stmt = con.prepareStatement(
+								"INSERT INTO stocklist(id,product_name,purity,location,gross_weight,flag) VALUES (?,?,?,?,?,?)");
+						stmt.setInt(1, id );
+						stmt.setString(2, comboBox.getSelectedItem().toString());
+						stmt.setString(3, comboBox_1.getSelectedItem().toString());
+						stmt.setString(4, comboBox_Location.getSelectedItem().toString());
+						stmt.setDouble(5, Double.parseDouble(txtNull.getText()));
+						stmt.setInt(6, 1);
+						stmt.execute();
+					} catch (Exception e) {
+
+						e.printStackTrace();
+					}
+					updateconfirmation.main(id);
+					frmItemizationNew.dispose();
+					}
+				}else if(evt.getKeyCode() == KeyEvent.VK_BACK_SPACE)
+				{
+					HomePage.main(null);
+					frmItemizationNew.dispose();
+				}
+				
+			}
+		});
+		comboBox_Location.setModel(new DefaultComboBoxModel(new String[] {""}));
 
 		JLabel lblNewLabel = new JLabel("Gross Weight");
 
 		JLabel label = new JLabel("");
 
-		textField = new JTextField();
-		textField.addKeyListener(new KeyAdapter() {
+		txtNull = new JTextField();
+		txtNull.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent evt) {
 				char vchar = evt.getKeyChar();
 				if ((Character.isDigit(vchar)) || (vchar == KeyEvent.VK_PERIOD) || (vchar == KeyEvent.VK_BACK_SPACE)) {
 					if (vchar == KeyEvent.VK_PERIOD) {
-						String s = textField.getText();
+						String s = txtNull.getText();
 						int dot = s.indexOf('.');
 						if (dot != -1) {
 							evt.consume();
@@ -159,33 +229,36 @@ public class newitem {
 			public void keyPressed(KeyEvent evt) {
 				if(evt.getKeyCode() == KeyEvent.VK_ENTER)
 				{
-					if(comboBox.getSelectedItem().toString() != null && comboBox_1.getSelectedItem().toString()!=null && comboBox_Location.getSelectedItem().toString() != null && textField.getText() != null)
+					if(comboBox.getSelectedItem().toString().length() == 0 || comboBox_1.getSelectedItem().toString().length() == 0 || comboBox_Location.getSelectedItem().toString().length() == 0 || txtNull.getText().length() == 0 )
+					{
+						JOptionPane.showMessageDialog(null, "Fields cannot be empty");
+					}
+					else
 					{
 						try {
-							Class.forName("com.mysql.jdbc.Driver");
-							Connection con = (Connection) DriverManager
-									.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false", "root", "");
-							PreparedStatement stmt = con.prepareStatement(
-									"INSERT INTO stocklist(id,product_name,purity,location,gross_weight,flag) VALUES (?,?,?,?,?,?)");
-							stmt.setInt(1, id);
-							stmt.setString(2, comboBox.getSelectedItem().toString());
-							stmt.setString(3, comboBox_1.getSelectedItem().toString());
-							stmt.setString(4, comboBox_Location.getSelectedItem().toString());
-							stmt.setDouble(5, Double.parseDouble(textField.getText()));
-							stmt.setInt(6, 1);
-							stmt.execute();
-						} catch (Exception e) {
+						Class.forName("com.mysql.jdbc.Driver");
+						Connection con = (Connection) DriverManager
+								.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false", "root", "");
+						PreparedStatement stmt = con.prepareStatement(
+								"INSERT INTO stocklist(id,product_name,purity,location,gross_weight,flag) VALUES (?,?,?,?,?,?)");
+						stmt.setInt(1, id );
+						stmt.setString(2, comboBox.getSelectedItem().toString());
+						stmt.setString(3, comboBox_1.getSelectedItem().toString());
+						stmt.setString(4, comboBox_Location.getSelectedItem().toString());
+						stmt.setDouble(5, Double.parseDouble(txtNull.getText()));
+						stmt.setInt(6, 1);
+						stmt.execute();
+					} catch (Exception e) {
 
-							e.printStackTrace();
-						}
-						updateconfirmation.main(id);
-						frmItemizationNew.dispose();
-
+						e.printStackTrace();
+					}
+					updateconfirmation.main(id);
+					frmItemizationNew.dispose();
 					}
 				}
 			}
 		});
-		textField.setColumns(10);
+		txtNull.setColumns(10);
 
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addKeyListener(new KeyAdapter() {
@@ -193,28 +266,31 @@ public class newitem {
 			public void keyPressed(KeyEvent evt) {
 				if(evt.getKeyCode() == KeyEvent.VK_ENTER)
 				{
-					if(comboBox.getSelectedItem().toString() != null && comboBox_1.getSelectedItem().toString()!=null && comboBox_Location.getSelectedItem().toString() != null && textField.getText() != null)
+					if(comboBox.getSelectedItem().toString().length() == 0 || comboBox_1.getSelectedItem().toString().length() == 0 || comboBox_Location.getSelectedItem().toString().length() == 0 || txtNull.getText().length() == 0 )
+					{
+						JOptionPane.showMessageDialog(null, "Fields cannot be empty");
+					}
+					else
 					{
 						try {
-							Class.forName("com.mysql.jdbc.Driver");
-							Connection con = (Connection) DriverManager
-									.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false", "root", "");
-							PreparedStatement stmt = con.prepareStatement(
-									"INSERT INTO stocklist(id,product_name,purity,location,gross_weight,flag) VALUES (?,?,?,?,?,?)");
-							stmt.setInt(1, id);
-							stmt.setString(2, comboBox.getSelectedItem().toString());
-							stmt.setString(3, comboBox_1.getSelectedItem().toString());
-							stmt.setString(4, comboBox_Location.getSelectedItem().toString());
-							stmt.setDouble(5, Double.parseDouble(textField.getText()));
-							stmt.setInt(6, 1);
-							stmt.execute();
-						} catch (Exception e) {
+						Class.forName("com.mysql.jdbc.Driver");
+						Connection con = (Connection) DriverManager
+								.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false", "root", "");
+						PreparedStatement stmt = con.prepareStatement(
+								"INSERT INTO stocklist(id,product_name,purity,location,gross_weight,flag) VALUES (?,?,?,?,?,?)");
+						stmt.setInt(1, id );
+						stmt.setString(2, comboBox.getSelectedItem().toString());
+						stmt.setString(3, comboBox_1.getSelectedItem().toString());
+						stmt.setString(4, comboBox_Location.getSelectedItem().toString());
+						stmt.setDouble(5, Double.parseDouble(txtNull.getText()));
+						stmt.setInt(6, 1);
+						stmt.execute();
+					} catch (Exception e) {
 
-							e.printStackTrace();
-						}
-						updateconfirmation.main(id);
-						frmItemizationNew.dispose();
-
+						e.printStackTrace();
+					}
+					updateconfirmation.main(id);
+					frmItemizationNew.dispose();
 					}
 				}else if(evt.getKeyCode() == KeyEvent.VK_BACK_SPACE)
 				{
@@ -226,7 +302,13 @@ public class newitem {
 		});
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				try {
+				if(comboBox.getSelectedItem().toString().length() == 0 || comboBox_1.getSelectedItem().toString().length() == 0 || comboBox_Location.getSelectedItem().toString().length() == 0 || txtNull.getText().length() == 0 )
+				{
+					JOptionPane.showMessageDialog(null, "Fields cannot be empty");
+				}
+				else
+				{
+					try {
 					Class.forName("com.mysql.jdbc.Driver");
 					Connection con = (Connection) DriverManager
 							.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false", "root", "");
@@ -236,7 +318,7 @@ public class newitem {
 					stmt.setString(2, comboBox.getSelectedItem().toString());
 					stmt.setString(3, comboBox_1.getSelectedItem().toString());
 					stmt.setString(4, comboBox_Location.getSelectedItem().toString());
-					stmt.setDouble(5, Double.parseDouble(textField.getText()));
+					stmt.setDouble(5, Double.parseDouble(txtNull.getText()));
 					stmt.setInt(6, 1);
 					stmt.execute();
 				} catch (Exception e) {
@@ -245,7 +327,7 @@ public class newitem {
 				}
 				updateconfirmation.main(id);
 				frmItemizationNew.dispose();
-
+				}
 			}
 		});
 
@@ -275,7 +357,45 @@ public class newitem {
 		JLabel lblPurity = new JLabel("Purity");
 
 		comboBox_1 = new JComboBox<String>();
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Regular", "KDM", "Silver", "92M-Silver"}));
+		comboBox_1.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent evt) {
+				if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+				{
+					if(comboBox.getSelectedItem().toString().length() == 0 || comboBox_1.getSelectedItem().toString().length() == 0 || comboBox_Location.getSelectedItem().toString().length() == 0 || txtNull.getText().length() == 0 )
+					{
+						JOptionPane.showMessageDialog(null, "Fields cannot be empty");
+					}
+					else
+					{
+						try {
+						Class.forName("com.mysql.jdbc.Driver");
+						Connection con = (Connection) DriverManager
+								.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false", "root", "");
+						PreparedStatement stmt = con.prepareStatement(
+								"INSERT INTO stocklist(id,product_name,purity,location,gross_weight,flag) VALUES (?,?,?,?,?,?)");
+						stmt.setInt(1, id );
+						stmt.setString(2, comboBox.getSelectedItem().toString());
+						stmt.setString(3, comboBox_1.getSelectedItem().toString());
+						stmt.setString(4, comboBox_Location.getSelectedItem().toString());
+						stmt.setDouble(5, Double.parseDouble(txtNull.getText()));
+						stmt.setInt(6, 1);
+						stmt.execute();
+					} catch (Exception e) {
+
+						e.printStackTrace();
+					}
+					updateconfirmation.main(id);
+					frmItemizationNew.dispose();
+					}
+				}else if(evt.getKeyCode() == KeyEvent.VK_BACK_SPACE)
+				{
+					HomePage.main(null);
+					frmItemizationNew.dispose();
+				}
+			}
+		});
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"", "Regular", "KDM", "Silver", "92M-Silver"}));
 
 		GroupLayout groupLayout = new GroupLayout(frmItemizationNew.getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -291,7 +411,7 @@ public class newitem {
 								.addComponent(lblNewLabel))
 							.addGap(45)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(textField, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtNull, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE)
 								.addComponent(comboBox_Location, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)))
@@ -323,7 +443,7 @@ public class newitem {
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtNull, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(label)
 					.addGap(34)
