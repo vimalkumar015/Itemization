@@ -164,6 +164,7 @@ public class soldoutlist extends javax.swing.JFrame {
         }
 	}
     public soldoutlist() {
+    	setTitle("ITEMIZATION - Sold Out List");
     	setIconImage(Toolkit.getDefaultToolkit().getImage(soldoutlist.class.getResource("/images/itemization_logo.png")));
     	getContentPane().setBackground(new Color(176, 224, 230));
         initComponents();

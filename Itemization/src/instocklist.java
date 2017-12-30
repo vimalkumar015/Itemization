@@ -26,6 +26,7 @@ import java.awt.print.PrinterException;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.Toolkit;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -167,6 +168,7 @@ public class instocklist extends javax.swing.JFrame {
     }
     
     public instocklist() throws SQLException {
+    	setIconImage(Toolkit.getDefaultToolkit().getImage(instocklist.class.getResource("/images/itemization_logo.png")));
     	setTitle("ITEMIZATION - In Stock List");
     	getContentPane().setBackground(new Color(176, 224, 230));
         initComponents();
