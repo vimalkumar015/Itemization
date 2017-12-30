@@ -60,7 +60,7 @@ public class LoginPage {
 		frmItemizationLogin = new JFrame();
 		frmItemizationLogin.getContentPane().setBackground(new Color(176, 224, 230));
 		frmItemizationLogin.setBackground(UIManager.getColor("EditorPane.selectionBackground"));
-		frmItemizationLogin.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\NirmalGds\\Downloads\\itemization_logo.png"));
+		frmItemizationLogin.setIconImage(Toolkit.getDefaultToolkit().getImage(LoginPage.class.getResource("/images/itemization_logo.png")));
 		frmItemizationLogin.setTitle("ITEMIZATION - Login page");
 		frmItemizationLogin.setBounds(100, 100, 450, 300);
 		frmItemizationLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

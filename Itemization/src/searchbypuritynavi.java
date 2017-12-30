@@ -70,6 +70,20 @@ public class searchbypuritynavi {
 		});
 		
 		JButton btnSilver = new JButton("Silver");
+		btnSilver.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER)
+				{
+					searchbysilverpurity.main(null);
+					frmItemizationSearch.dispose();
+				}else if(e.getKeyCode() == KeyEvent.VK_ENTER)
+				{
+					search.main(null);
+					frmItemizationSearch.dispose();
+				}
+			}
+		});
 		btnSilver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				searchbysilverpurity.main(null);
@@ -78,6 +92,20 @@ public class searchbypuritynavi {
 		});
 		
 		JButton btnBack = new JButton("Back");
+		btnBack.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER)
+				{
+					search.main(null);
+					frmItemizationSearch.dispose();
+				}else if(e.getKeyCode() == KeyEvent.VK_ENTER)
+				{
+					search.main(null);
+					frmItemizationSearch.dispose();
+				}
+			}
+		});
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				search.main(null);

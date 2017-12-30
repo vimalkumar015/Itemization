@@ -96,7 +96,7 @@ public class updateconfirmation {
 		frmItemizationConfirmation = new JFrame();
 		frmItemizationConfirmation.getContentPane().setBackground(new Color(176, 224, 230));
 		frmItemizationConfirmation.setTitle("ITEMIZATION - Confirmation");
-		frmItemizationConfirmation.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\NirmalGds\\Downloads\\itemization_logo.png"));
+		frmItemizationConfirmation.setIconImage(Toolkit.getDefaultToolkit().getImage(updateconfirmation.class.getResource("/images/itemization_logo.png")));
 		frmItemizationConfirmation.setBounds(100, 100, 470, 337);
 		frmItemizationConfirmation.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		

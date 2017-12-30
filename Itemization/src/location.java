@@ -43,7 +43,7 @@ public class location {
 	 */
 	private void initialize() {
 		frmItemizationEdit = new JFrame();
-		frmItemizationEdit.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\NirmalGds\\Downloads\\itemization_logo.png"));
+		frmItemizationEdit.setIconImage(Toolkit.getDefaultToolkit().getImage(location.class.getResource("/images/itemization_logo.png")));
 		frmItemizationEdit.setTitle("ITEMIZATION - Edit Location ");
 		frmItemizationEdit.getContentPane().setBackground(new Color(176, 224, 230));
 		frmItemizationEdit.setBounds(100, 100, 450, 300);

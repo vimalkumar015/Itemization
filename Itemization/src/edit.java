@@ -55,7 +55,7 @@ public class edit {
 	private void initialize() {
 		frmIteizationEdit = new JFrame();
 		frmIteizationEdit.setTitle("ITEIZATION - Edit Search");
-		frmIteizationEdit.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\NirmalGds\\Downloads\\itemization_logo.png"));
+		frmIteizationEdit.setIconImage(Toolkit.getDefaultToolkit().getImage(edit.class.getResource("/images/itemization_logo.png")));
 		frmIteizationEdit.getContentPane().setBackground(new Color(176, 224, 230));
 		
 		JLabel lblNewLabel = new JLabel("Enter the ID");

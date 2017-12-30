@@ -54,7 +54,7 @@ public class addlocation {
 	 */
 	private void initialize() {
 		frmItemizationAdd = new JFrame();
-		frmItemizationAdd.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\NirmalGds\\Downloads\\itemization_logo.png"));
+		frmItemizationAdd.setIconImage(Toolkit.getDefaultToolkit().getImage(addlocation.class.getResource("/images/itemization_logo.png")));
 		frmItemizationAdd.setTitle("ITEMIZATION - Add Location");
 		frmItemizationAdd.getContentPane().setBackground(new Color(176, 224, 230));
 		frmItemizationAdd.setBounds(100, 100, 450, 300);

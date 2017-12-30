@@ -14,6 +14,7 @@ import javax.swing.JTable;
 
 import net.proteanit.sql.DbUtils;
 import java.awt.Color;
+import java.awt.Toolkit;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -35,6 +36,7 @@ public class customreportresult extends javax.swing.JFrame {
      * Creates new form customreportresult
      */
     public customreportresult() {
+    	setIconImage(Toolkit.getDefaultToolkit().getImage(customreportresult.class.getResource("/images/itemization_logo.png")));
     	setTitle("ITEMIZATION - Custom Report");
     	getContentPane().setBackground(new Color(176, 224, 230));
         initComponents();

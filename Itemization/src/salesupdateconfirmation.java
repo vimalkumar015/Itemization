@@ -89,7 +89,7 @@ public class salesupdateconfirmation {
 	 */
 	private void initialize() {
 		frmIteizationSales = new JFrame();
-		frmIteizationSales.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\NirmalGds\\Downloads\\itemization_logo.png"));
+		frmIteizationSales.setIconImage(Toolkit.getDefaultToolkit().getImage(salesupdateconfirmation.class.getResource("/images/itemization_logo.png")));
 		
 		frmIteizationSales.setTitle("ITEIZATION - Sales Update Confirmation");
 		

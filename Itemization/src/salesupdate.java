@@ -54,7 +54,7 @@ public class salesupdate {
 	private void initialize() {
 		frmItemizationSales = new JFrame();
 		frmItemizationSales.setTitle("ITEMIZATION - Sales Update");
-		frmItemizationSales.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\NirmalGds\\Downloads\\itemization_logo.png"));
+		frmItemizationSales.setIconImage(Toolkit.getDefaultToolkit().getImage(salesupdate.class.getResource("/images/itemization_logo.png")));
 		frmItemizationSales.getContentPane().setBackground(new Color(176, 224, 230));
 		frmItemizationSales.setBounds(100, 100, 450, 300);
 		frmItemizationSales.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

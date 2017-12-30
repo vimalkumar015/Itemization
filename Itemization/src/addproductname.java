@@ -19,6 +19,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
 public class addproductname {
 
@@ -55,6 +56,7 @@ public class addproductname {
 	 */
 	private void initialize() {
 		frmItemizationAdd = new JFrame();
+		frmItemizationAdd.setIconImage(Toolkit.getDefaultToolkit().getImage(addproductname.class.getResource("/images/itemization_logo.png")));
 		frmItemizationAdd.setTitle("ITEMIZATION - Add New Product Name");
 		frmItemizationAdd.getContentPane().setBackground(new Color(176, 224, 230));
 		frmItemizationAdd.setBounds(100, 100, 450, 300);

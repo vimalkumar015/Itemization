@@ -32,7 +32,7 @@ public class searchbypurity extends javax.swing.JFrame {
      * Creates new form searchbypurity
      */
     public searchbypurity() {
-    	setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\NirmalGds\\Downloads\\itemization_logo.png"));
+    	setIconImage(Toolkit.getDefaultToolkit().getImage(searchbypurity.class.getResource("/images/itemization_logo.png")));
     	setTitle("ITEMIZATION - Search by Purity (Gold)");
     	getContentPane().setBackground(new Color(176, 224, 230));
         initComponents();

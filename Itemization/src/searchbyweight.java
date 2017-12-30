@@ -50,7 +50,7 @@ public class searchbyweight {
 	 */
 	private void initialize() {
 		frmItemizationSearch = new JFrame();
-		frmItemizationSearch.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\NirmalGds\\Downloads\\itemization_logo.png"));
+		frmItemizationSearch.setIconImage(Toolkit.getDefaultToolkit().getImage(searchbyweight.class.getResource("/images/itemization_logo.png")));
 		frmItemizationSearch.setTitle("ITEMIZATION - Search by Weight");
 		frmItemizationSearch.getContentPane().setBackground(new Color(176, 224, 230));
 		

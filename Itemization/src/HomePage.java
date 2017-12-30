@@ -45,7 +45,7 @@ public class HomePage {
 	 */
 	private void initialize() {
 		frmItemizationHome = new JFrame();
-		frmItemizationHome.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\NirmalGds\\Downloads\\itemization_logo.png"));
+		frmItemizationHome.setIconImage(Toolkit.getDefaultToolkit().getImage(HomePage.class.getResource("/images/itemization_logo.png")));
 		frmItemizationHome.setTitle("ITEMIZATION - Home");
 		frmItemizationHome.getContentPane().setBackground(new Color(176, 224, 230));
 		

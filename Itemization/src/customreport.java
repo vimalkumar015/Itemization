@@ -26,7 +26,7 @@ public class customreport extends javax.swing.JFrame {
      */
     public customreport() {
     	setTitle("ITEMIZATION - Custom Report");
-    	setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\NirmalGds\\Downloads\\itemization_logo.png"));
+    	setIconImage(Toolkit.getDefaultToolkit().getImage(customreport.class.getResource("/images/itemization_logo.png")));
     	getContentPane().setBackground(new Color(176, 224, 230));
         initComponents();
     }

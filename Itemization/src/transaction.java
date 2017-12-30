@@ -44,7 +44,7 @@ public class transaction {
 	private void initialize() {
 		frmItemizationTransaction = new JFrame();
 		frmItemizationTransaction.setTitle("ITEMIZATION - Transaction Report");
-		frmItemizationTransaction.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\NirmalGds\\Downloads\\itemization_logo.png"));
+		frmItemizationTransaction.setIconImage(Toolkit.getDefaultToolkit().getImage(transaction.class.getResource("/images/itemization_logo.png")));
 		frmItemizationTransaction.getContentPane().setBackground(new Color(176, 224, 230));
 		
 		JButton btnTodaysReport = new JButton("Todays Report");

@@ -113,7 +113,7 @@ public class newitem {
 	private void initialize() {
 		frmItemizationNew = new JFrame();
 		frmItemizationNew.setIconImage(
-				Toolkit.getDefaultToolkit().getImage("C:\\Users\\NirmalGds\\Downloads\\itemization_logo.png"));
+				Toolkit.getDefaultToolkit().getImage(newitem.class.getResource("/images/itemization_logo.png")));
 		frmItemizationNew.setTitle("ITEMIZATION - New Item");
 		frmItemizationNew.getContentPane().setBackground(new Color(176, 224, 230));
 

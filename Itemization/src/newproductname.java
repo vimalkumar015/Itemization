@@ -44,7 +44,7 @@ public class newproductname {
 	 */
 	private void initialize() {
 		frmProductNameEdit = new JFrame();
-		frmProductNameEdit.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\NirmalGds\\Downloads\\itemization_logo.png"));
+		frmProductNameEdit.setIconImage(Toolkit.getDefaultToolkit().getImage(newproductname.class.getResource("/images/itemization_logo.png")));
 		frmProductNameEdit.setTitle("ITEMIZATION - Product Name Edit");
 		frmProductNameEdit.getContentPane().setBackground(new Color(176, 224, 230));
 		frmProductNameEdit.setBounds(100, 100, 450, 300);

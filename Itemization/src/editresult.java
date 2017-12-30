@@ -98,7 +98,7 @@ public class editresult {
 		frmItemizationEdit = new JFrame();
 		frmItemizationEdit.getContentPane().setBackground(new Color(176, 224, 230));
 		frmItemizationEdit.setTitle("ITEMIZATION - Edit");
-		frmItemizationEdit.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\NirmalGds\\Downloads\\itemization_logo.png"));
+		frmItemizationEdit.setIconImage(Toolkit.getDefaultToolkit().getImage(editresult.class.getResource("/images/itemization_logo.png")));
 		frmItemizationEdit.setBounds(100, 100, 520, 362);
 		frmItemizationEdit.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		

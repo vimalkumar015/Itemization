@@ -32,7 +32,7 @@ MessageFormat header;
     
     public todaysreport() {
     	setTitle("ITEMIZATION - Today's Transaction Report");
-    	setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\NirmalGds\\Downloads\\itemization_logo.png"));
+    	setIconImage(Toolkit.getDefaultToolkit().getImage(todaysreport.class.getResource("/images/itemization_logo.png")));
     	getContentPane().setBackground(new Color(176, 224, 230));
         initComponents();
     }

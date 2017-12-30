@@ -77,7 +77,7 @@ public class locationdelete {
 	 */
 	private void initialize() {
 		frmItemizationDelete = new JFrame();
-		frmItemizationDelete.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\NirmalGds\\Downloads\\itemization_logo.png"));
+		frmItemizationDelete.setIconImage(Toolkit.getDefaultToolkit().getImage(locationdelete.class.getResource("/images/itemization_logo.png")));
 		frmItemizationDelete.setTitle("ITEMIZATION - Delete Location");
 		frmItemizationDelete.getContentPane().setBackground(new Color(176, 224, 230));
 		frmItemizationDelete.setBounds(100, 100, 450, 300);

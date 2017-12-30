@@ -70,7 +70,7 @@ public class searchbyweightresult extends javax.swing.JFrame {
     public searchbyweightresult() {
     	getContentPane().setBackground(new Color(176, 224, 230));
     	setTitle("ITEMIZATION - Search by Weight");
-    	setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\NirmalGds\\Downloads\\itemization_logo.png"));
+    	setIconImage(Toolkit.getDefaultToolkit().getImage(searchbyweightresult.class.getResource("/images/itemization_logo.png")));
         initComponents();
         updatetable();
     }

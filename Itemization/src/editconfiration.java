@@ -91,7 +91,7 @@ public class editconfiration {
 	private void initialize() {
 		frmItemizationSearch = new JFrame();
 		frmItemizationSearch.getContentPane().setBackground(new Color(176, 224, 230));
-		frmItemizationSearch.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\NirmalGds\\Downloads\\itemization_logo.png"));
+		frmItemizationSearch.setIconImage(Toolkit.getDefaultToolkit().getImage(editconfiration.class.getResource("/images/itemization_logo.png")));
 		frmItemizationSearch.setTitle("ITEMIZATION - Edit");
 		frmItemizationSearch.setBounds(100, 100, 455, 356);
 		frmItemizationSearch.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
