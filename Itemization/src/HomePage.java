@@ -74,14 +74,14 @@ public class HomePage {
 			public void keyPressed(KeyEvent evt) {
 				if(evt.getKeyCode() == KeyEvent.VK_ENTER)
 				{
-					salesupdate.main(null);
+					salesupdatenavigator.main(null);
 					frmItemizationHome.dispose();
 				}
 			}
 		});
 		btnSal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				salesupdate.main(null);
+				salesupdatenavigator.main(null);
 				frmItemizationHome.dispose();
 			}
 		});
