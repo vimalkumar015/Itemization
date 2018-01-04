@@ -99,7 +99,7 @@ public class customsalesupdate {
 		frmIteizationSales = new JFrame();
 		frmIteizationSales.setIconImage(Toolkit.getDefaultToolkit().getImage(customsalesupdate.class.getResource("/images/itemization_logo.png")));
 		
-		frmIteizationSales.setTitle("ITEIZATION - Sales Update Confirmation");
+		frmIteizationSales.setTitle("ITEIZATION - Custom Sales Update Confirmation");
 		
 		frmIteizationSales.getContentPane().setBackground(new Color(176, 224, 230));
 		
@@ -193,7 +193,7 @@ public class customsalesupdate {
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER)
 				{
-					if(dateChooser != null)
+					if(dateChooser != null )
 					{
 					try {
 						df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -215,9 +215,15 @@ public class customsalesupdate {
 							stmt.execute();
 							stmt1.execute();
 							JOptionPane.showMessageDialog(null, "Sucessfully updated the item status");
+							customsalesupdateid.main(null);
+							frmIteizationSales.dispose();
+						
 						}
 					else {
 							JOptionPane.showMessageDialog(null, "Item already updated as Sold Out");
+							customsalesupdateid.main(null);
+							frmIteizationSales.dispose();
+						
 					}
 					}
 					}
@@ -229,8 +235,6 @@ public class customsalesupdate {
 					{
 						JOptionPane.showMessageDialog(null, "Please Select the Sold On Date");
 					}
-					HomePage.main(null);
-					frmIteizationSales.dispose();
 				}else if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
 				{
 					customsalesupdateid.main(null);
@@ -240,7 +244,7 @@ public class customsalesupdate {
 		});
 		btnUpdateAsSold.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(dateChooser != null)
+				if(dateChooser != null )
 				{
 				try {
 					df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -262,9 +266,15 @@ public class customsalesupdate {
 						stmt.execute();
 						stmt1.execute();
 						JOptionPane.showMessageDialog(null, "Sucessfully updated the item status");
+						customsalesupdateid.main(null);
+						frmIteizationSales.dispose();
+					
 					}
 				else {
 						JOptionPane.showMessageDialog(null, "Item already updated as Sold Out");
+						customsalesupdateid.main(null);
+						frmIteizationSales.dispose();
+					
 				}
 				}
 				}
@@ -276,8 +286,6 @@ public class customsalesupdate {
 				{
 					JOptionPane.showMessageDialog(null, "Please Select the Sold On Date");
 				}
-				HomePage.main(null);
-				frmIteizationSales.dispose();
 			}
 		});
 		

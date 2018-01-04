@@ -91,7 +91,7 @@ public class salesupdateconfirmation {
 		frmIteizationSales = new JFrame();
 		frmIteizationSales.setIconImage(Toolkit.getDefaultToolkit().getImage(salesupdateconfirmation.class.getResource("/images/itemization_logo.png")));
 		
-		frmIteizationSales.setTitle("ITEIZATION - Sales Update Confirmation");
+		frmIteizationSales.setTitle("ITEIZATION - Standard Sales Update Confirmation");
 		
 		frmIteizationSales.getContentPane().setBackground(new Color(176, 224, 230));
 		
@@ -202,9 +202,13 @@ public class salesupdateconfirmation {
 							stmt.execute();
 							stmt1.execute();
 							JOptionPane.showMessageDialog(null, "Sucessfully updated the item status");
+							salesupdate.main(null);
+							frmIteizationSales.dispose();
 						}
 					else {
 							JOptionPane.showMessageDialog(null, "Item already updated as Sold Out");
+							salesupdate.main(null);
+							frmIteizationSales.dispose();
 					}
 					}
 					}
@@ -213,8 +217,7 @@ public class salesupdateconfirmation {
 						e1.printStackTrace();
 					}
 					
-					HomePage.main(null);
-					frmIteizationSales.dispose();
+					
 				}else if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
 				{
 					salesupdate.main(null);
@@ -241,9 +244,13 @@ public class salesupdateconfirmation {
 						stmt.execute();
 						stmt1.execute();
 						JOptionPane.showMessageDialog(null, "Sucessfully updated the item status");
+						salesupdate.main(null);
+						frmIteizationSales.dispose();
 					}
 				else {
 						JOptionPane.showMessageDialog(null, "Item already updated as Sold Out");
+						salesupdate.main(null);
+						frmIteizationSales.dispose();
 				}
 				}
 					
@@ -256,8 +263,7 @@ public class salesupdateconfirmation {
 					e1.printStackTrace();
 				}
 				
-				HomePage.main(null);
-				frmIteizationSales.dispose();
+				
 			}
 		});
 		

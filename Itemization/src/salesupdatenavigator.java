@@ -47,7 +47,7 @@ public class salesupdatenavigator {
 		frmItemizationSales.setIconImage(Toolkit.getDefaultToolkit().getImage(salesupdatenavigator.class.getResource("/images/itemization_logo.png")));
 		frmItemizationSales.getContentPane().setBackground(new Color(176, 224, 230));
 		
-		JButton btnUpdate = new JButton("Stangard Update");
+		JButton btnUpdate = new JButton("Standard Update");
 		btnUpdate.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent evt) {

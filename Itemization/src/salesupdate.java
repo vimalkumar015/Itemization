@@ -53,7 +53,7 @@ public class salesupdate {
 	 */
 	private void initialize() {
 		frmItemizationSales = new JFrame();
-		frmItemizationSales.setTitle("ITEMIZATION - Sales Update");
+		frmItemizationSales.setTitle("ITEMIZATION - Standard Sales Update");
 		frmItemizationSales.setIconImage(Toolkit.getDefaultToolkit().getImage(salesupdate.class.getResource("/images/itemization_logo.png")));
 		frmItemizationSales.getContentPane().setBackground(new Color(176, 224, 230));
 		frmItemizationSales.setBounds(100, 100, 450, 300);
@@ -89,7 +89,7 @@ public class salesupdate {
 					frmItemizationSales.dispose();
 				}else if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
 				{
-					HomePage.main(null);
+					salesupdatenavigator.main(null);
 					frmItemizationSales.dispose();
 				}
 			}
@@ -109,18 +109,18 @@ public class salesupdate {
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER)
 				{
-					HomePage.main(null);
+					salesupdatenavigator.main(null);
 					frmItemizationSales.dispose();
 				}else if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
 				{
-					HomePage.main(null);
+					salesupdatenavigator.main(null);
 					frmItemizationSales.dispose();
 				}
 			}
 		});
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				HomePage.main(null);
+				salesupdatenavigator.main(null);
 				frmItemizationSales.dispose();
 			}
 		});
