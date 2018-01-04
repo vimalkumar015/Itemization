@@ -198,8 +198,6 @@ public class customsalesupdate {
 					try {
 						df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 						date=String.valueOf(df.format(dateChooser.getDate()));
-						
-						JOptionPane.showMessageDialog(null, date);
 						Class.forName("com.mysql.jdbc.Driver");
 						Connection con=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
 						PreparedStatement stmt0 = (PreparedStatement) con.prepareStatement("Select * from stocklist where id= ?");
@@ -247,8 +245,6 @@ public class customsalesupdate {
 				try {
 					df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 					date=String.valueOf(df.format(dateChooser.getDate()));
-					
-					JOptionPane.showMessageDialog(null, date);
 					Class.forName("com.mysql.jdbc.Driver");
 					Connection con=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
 					PreparedStatement stmt0 = (PreparedStatement) con.prepareStatement("Select * from stocklist where id= ?");
