@@ -132,7 +132,7 @@ public class LoginPage {
 				}
 				catch(Exception e)
 				{
-					System.out.println(e);
+					JOptionPane.showMessageDialog(null, e);
 				}
 				
 				
