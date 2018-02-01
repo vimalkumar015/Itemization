@@ -121,7 +121,7 @@ public class editresult {
 		
 		
 		comboBox_1 = new JComboBox();
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Regular", "KDM"}));
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Regular", "KDM", "Silver", "92M-Silver"}));
 		
 		comboBox_2 = new JComboBox<String>();
 		
