@@ -193,23 +193,45 @@ public class HomePage {
 				frmItemizationHome.dispose();
 			}
 		});
+		
+		JButton btnStockCount = new JButton("Stock Count");
+		btnStockCount.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode()== KeyEvent.VK_ENTER)
+				{
+					stock_count_navi.main(null);
+					frmItemizationHome.dispose();
+				}
+			}
+		});
+		btnStockCount.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				stock_count_navi.main(null);
+				frmItemizationHome.dispose();
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(frmItemizationHome.getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(72)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(btnNewButton_1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-						.addComponent(btnNewButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-						.addComponent(btnAddItem, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-						.addComponent(btnItemList, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+						.addComponent(btnAddItem, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+						.addComponent(btnItemList, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+						.addComponent(btnNewButton_1, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
 					.addGap(62)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(btnExit, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(btnAddNewLocation, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(btnReport, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnSal, GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
-					.addGap(48))
+						.addComponent(btnSal, GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+						.addComponent(btnStockCount, GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE))
+					.addGap(27))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(156)
+					.addComponent(btnExit, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+					.addGap(104))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -227,14 +249,15 @@ public class HomePage {
 						.addComponent(btnNewButton)
 						.addComponent(btnAddNewLocation))
 					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnNewButton_1)
-						.addComponent(btnExit))
-					.addContainerGap(92, Short.MAX_VALUE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(btnStockCount)
+						.addComponent(btnNewButton_1))
+					.addGap(18)
+					.addComponent(btnExit)
+					.addContainerGap(29, Short.MAX_VALUE))
 		);
 		frmItemizationHome.getContentPane().setLayout(groupLayout);
-		frmItemizationHome.setBounds(100, 100, 471, 281);
+		frmItemizationHome.setBounds(100, 100, 489, 312);
 		frmItemizationHome.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-
 }
