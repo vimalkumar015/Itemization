@@ -15,6 +15,15 @@ import javax.swing.JTable;
 import net.proteanit.sql.DbUtils;
 import java.awt.Color;
 import java.awt.Toolkit;
+import javax.swing.JLabel;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -112,88 +121,403 @@ public class customreportresult extends javax.swing.JFrame {
                 jButton2KeyPressed(evt);
             }
         });
+        
+        lblNewLabel = new JLabel("Type");
+        
+        comboBox = new JComboBox();
+        comboBox.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent evt) {
+        		jComboBoxActionPerformed(evt);
+        	}
+        });
+        comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "All", "Gold", "Silver"}));
+        
+        lblTotalWeight = new JLabel("Total Weight");
+        
+        textField = new JTextField();
+        textField.setEditable(false);
+        textField.setColumns(10);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(329, 329, 329)
-                .addComponent(jButton1)
-                .addGap(150, 150, 150)
-                .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(53, 53, 53)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 759, Short.MAX_VALUE)))
-                .addContainerGap())
+        	layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(layout.createSequentialGroup()
+        			.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        				.addGroup(layout.createSequentialGroup()
+        					.addGap(167)
+        					.addComponent(jButton1)
+        					.addGap(193)
+        					.addComponent(jButton2)
+        					.addGap(82)
+        					.addComponent(lblTotalWeight)
+        					.addGap(31)
+        					.addComponent(textField, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE))
+        				.addGroup(layout.createSequentialGroup()
+        					.addContainerGap()
+        					.addComponent(jLabel1)
+        					.addGap(53)
+        					.addComponent(jComboBox1, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
+        					.addGap(58)
+        					.addComponent(lblNewLabel)
+        					.addGap(38)
+        					.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE))
+        				.addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 912, GroupLayout.PREFERRED_SIZE))
+        			.addContainerGap())
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap())
+        	layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(layout.createSequentialGroup()
+        			.addGap(16)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLabel1)
+        				.addComponent(jComboBox1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(lblNewLabel)
+        				.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        			.addGap(18)
+        			.addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jButton1)
+        				.addComponent(jButton2)
+        				.addComponent(lblTotalWeight)
+        				.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        			.addContainerGap())
         );
+        getContentPane().setLayout(layout);
 
         pack();
     }// </editor-fold>                        
-
+    private void jComboBoxActionPerformed(java.awt.event.ActionEvent evt)
+    {
+    	
+    	if(jComboBox1.getSelectedItem().toString() == "In Stock" && comboBox.getSelectedItem() == "All")
+    	{
+    		try
+    		{
+    			Class.forName("com.mysql.jdbc.Driver");
+    			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
+    			PreparedStatement pst  = conn.prepareStatement("Select `id` as ID, `product_name` AS PRODUCT, `Purity` AS PURITY, `location` AS LOCATION, `gross_weight` AS `GROSS WEIGHT`, date(`date&time`) AS `CREATED ON` From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 1");
+    			PreparedStatement pst1 = conn.prepareStatement("Select sum(`gross_weight`) From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 1 ");
+    			pst.setDate(1, fromdate);
+    			pst.setDate(2, todate);
+    			pst1.setDate(1, fromdate);
+    			pst1.setDate(2, todate);
+    			ResultSet rs = pst.executeQuery();
+    			ResultSet rs1 = pst1.executeQuery();
+    			if(rs!=null)
+    			{
+    				jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+    			}
+    			if(rs1.next())
+    			{
+    				textField.setText(String.valueOf(rs1.getDouble(1)));
+    			}
+    		}
+    		catch(Exception e)
+    		{
+    			e.printStackTrace();
+    		}
+    	}else if(jComboBox1.getSelectedItem().toString() == "In Stock" && comboBox.getSelectedItem() == "Gold")
+    	{
+    		try
+    		{
+    			Class.forName("com.mysql.jdbc.Driver");
+    			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
+    			PreparedStatement pst  = conn.prepareStatement("Select `id` as ID, `product_name` AS PRODUCT, `Purity` AS PURITY, `location` AS LOCATION, `gross_weight` AS `GROSS WEIGHT`, date(`date&time`) AS `CREATED ON` From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 1 and (Purity = \"Regular\" OR Purity = \"KDM\" )");
+    			PreparedStatement pst1 = conn.prepareStatement("Select sum(`gross_weight`) From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 1 and (Purity = \"Regular\" OR Purity = \"KDM\")");
+    			pst1.setDate(1, fromdate);
+    			pst1.setDate(2, todate);
+    			pst.setDate(1, fromdate);
+    			pst.setDate(2, todate);
+    			ResultSet rs = pst.executeQuery();
+    			ResultSet rs1 = pst1.executeQuery();
+    			if(rs!=null)
+    			{
+    				jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+    			}
+    			if(rs1.next())
+    			{
+    				textField.setText(String.valueOf(rs1.getDouble(1)));
+    			}
+    		}
+    		catch(Exception e)
+    		{
+    			e.printStackTrace();
+    		}
+    	}else if(jComboBox1.getSelectedItem().toString() == "In Stock" && comboBox.getSelectedItem() == "Silver")
+    	{
+    		try
+    		{
+    			Class.forName("com.mysql.jdbc.Driver");
+    			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
+    			PreparedStatement pst  = conn.prepareStatement("Select `id` as ID, `product_name` AS PRODUCT, `Purity` AS PURITY, `location` AS LOCATION, `gross_weight` AS `GROSS WEIGHT`, date(`date&time`) AS `CREATED ON` From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 1 and (Purity = \"Silver\" OR Purity = \"92M-Silver\" )");
+    			PreparedStatement pst1 = conn.prepareStatement("Select sum(`gross_weight`) From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 1 and (Purity = \"Silver\" OR Purity = \"92M-Silver\")");
+    			pst1.setDate(1, fromdate);
+    			pst1.setDate(2, todate);
+    			pst.setDate(1, fromdate);
+    			pst.setDate(2, todate);
+    			ResultSet rs = pst.executeQuery();
+    			ResultSet rs1 = pst1.executeQuery();
+    			if(rs!=null)
+    			{
+    				jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+    			}
+    			if(rs1.next())
+    			{
+    				textField.setText(String.valueOf(rs1.getDouble(1)));
+    			}
+    		}
+    		catch(Exception e)
+    		{
+    			e.printStackTrace();
+    		}
+    	}else if(jComboBox1.getSelectedItem().toString() == "Sold Out" && comboBox.getSelectedItem() == "Silver")
+    	{
+    		try
+    		{
+    			Class.forName("com.mysql.jdbc.Driver");
+    			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
+    			PreparedStatement pst  = conn.prepareStatement("Select `id` as ID, `product_name` AS PRODUCT, `Purity` AS PURITY, `location` AS LOCATION, `gross_weight` AS `GROSS WEIGHT`, date(`date&time`) AS `CREATED ON` From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 0 and (Purity = \"Silver\" OR Purity = \"92M-Silver\" )");
+    			PreparedStatement pst1 = conn.prepareStatement("Select sum(`gross_weight`) From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 0 and (Purity = \"Silver\" OR Purity = \"92M-Silver\" )");
+    			pst1.setDate(1, fromdate);
+    			pst1.setDate(2, todate);
+    			pst.setDate(1, fromdate);
+    			pst.setDate(2, todate);
+    			ResultSet rs = pst.executeQuery();
+    			ResultSet rs1 = pst1.executeQuery();
+    			if(rs1.next())
+    			{
+    				textField.setText(String.valueOf(rs1.getDouble(1)));
+    			}
+    			if(rs!=null)
+    			{
+    				jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+    			}
+    		}
+    		catch(Exception e)
+    		{
+    			e.printStackTrace();
+    		}
+    	}else if(jComboBox1.getSelectedItem().toString() == "Sold Out" && comboBox.getSelectedItem() == "Gold")
+    	{
+    		try
+    		{
+    			Class.forName("com.mysql.jdbc.Driver");
+    			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
+    			PreparedStatement pst  = conn.prepareStatement("Select `id` as ID, `product_name` AS PRODUCT, `Purity` AS PURITY, `location` AS LOCATION, `gross_weight` AS `GROSS WEIGHT`, date(`date&time`) AS `CREATED ON` From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 0 and (Purity = \"Regular\" OR Purity = \"KDM\" )");
+    			PreparedStatement pst1 = conn.prepareStatement("Select sum(`gross_weight`) From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 0 and (Purity = \"Regular\" OR Purity = \"KDM\" )");
+    			pst1.setDate(1, fromdate);
+    			pst1.setDate(2, todate);
+    			pst.setDate(1, fromdate);
+    			pst.setDate(2, todate);
+    			ResultSet rs = pst.executeQuery();
+    			ResultSet rs1 = pst1.executeQuery();
+    			if(rs1.next())
+    			{
+    				textField.setText(String.valueOf(rs1.getDouble(1)));
+    			}
+    			if(rs!=null)
+    			{
+    				jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+    			}
+    		}
+    		catch(Exception e)
+    		{
+    			e.printStackTrace();
+    		}
+    	}else if(jComboBox1.getSelectedItem().toString() == "Sold Out" && comboBox.getSelectedItem() == "All")
+    	{
+    		try
+    		{
+    			Class.forName("com.mysql.jdbc.Driver");
+    			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
+    			PreparedStatement pst  = conn.prepareStatement("Select `id` as ID, `product_name` AS PRODUCT, `Purity` AS PURITY, `location` AS LOCATION, `gross_weight` AS `GROSS WEIGHT`, date(`date&time`) AS `CREATED ON` From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 0");
+    			PreparedStatement pst1 = conn.prepareStatement("Select sum(`gross_weight`) From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 0");
+    			pst1.setDate(1, fromdate);
+    			pst1.setDate(2, todate);
+    			pst.setDate(1, fromdate);
+    			pst.setDate(2, todate);
+    			ResultSet rs = pst.executeQuery();
+    			ResultSet rs1 = pst1.executeQuery();
+    			if(rs1.next())
+    			{
+    				textField.setText(String.valueOf(rs1.getDouble(1)));
+    			}
+    			if(rs!=null)
+    			{
+    				jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+    			}
+    		}
+    		catch(Exception e)
+    		{
+    			e.printStackTrace();
+    		}
+    	}
+    }
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        temp = jComboBox1.getSelectedItem().toString();
-        if(temp == "In Stock")
-        { try
-        {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
-            PreparedStatement pst = conn.prepareStatement("SELECT `id` AS ID, `product_name` AS PRODUCT, `Purity` AS PURITY, `location` AS LOCATION, `gross_weight` AS `GROSS WEIGHT`, date(`date&time`) AS `CREATED ON` FROM `stocklist` WHERE date(`date&time`) between ? and ? and flag = 1");
-            pst.setDate(1,fromdate);
-            pst.setDate(2, todate);
-            ResultSet rs =pst.executeQuery();
-            if(rs!=null)
-            {
-                jTable1.setModel(DbUtils.resultSetToTableModel(rs));
-            }
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-            
-        }else if(temp == "Sold Out")
-        {
-            try
-        {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
-            PreparedStatement pst = conn.prepareStatement("SELECT `stocklist`.`id` AS ID, `stocklist`.`product_name` AS name,`stocklist`.`Purity` AS Purity,`stocklist`.`location` AS LOCATION,`stocklist`.`gross_weight` AS `GROSS WEIGHT`, date(`stocklist`.`date&time`) AS `ENTRY CREATED ON`,date(`soldoutdate`.`sold date`) AS `SOLD ON` FROM stocklist JOIN soldoutdate ON stocklist.id = soldoutdate.id WHERE stocklist.flag = 0 AND date(`soldoutdate`.`sold date`) between ? and ?");
-            pst.setDate(1,fromdate);
-            pst.setDate(2, todate);
-            ResultSet rs =pst.executeQuery();
-            if(rs!=null)
-            {
-                jTable1.setModel(DbUtils.resultSetToTableModel(rs));
-            }
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-        }
+    	if(jComboBox1.getSelectedItem().toString() == "In Stock" && comboBox.getSelectedItem() == "All")
+    	{
+    		try
+    		{
+    			Class.forName("com.mysql.jdbc.Driver");
+    			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
+    			PreparedStatement pst  = conn.prepareStatement("Select `id` as ID, `product_name` AS PRODUCT, `Purity` AS PURITY, `location` AS LOCATION, `gross_weight` AS `GROSS WEIGHT`, date(`date&time`) AS `CREATED ON` From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 1");
+    			PreparedStatement pst1 = conn.prepareStatement("Select sum(`gross_weight`) From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 1 ");
+    			pst.setDate(1, fromdate);
+    			pst.setDate(2, todate);
+    			pst1.setDate(1, fromdate);
+    			pst1.setDate(2, todate);
+    			ResultSet rs = pst.executeQuery();
+    			ResultSet rs1 = pst1.executeQuery();
+    			if(rs!=null)
+    			{
+    				jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+    			}
+    			if(rs1.next())
+    			{
+    				textField.setText(String.valueOf(rs1.getDouble(1)));
+    			}
+    		}
+    		catch(Exception e)
+    		{
+    			e.printStackTrace();
+    		}
+    	}else if(jComboBox1.getSelectedItem().toString() == "In Stock" && comboBox.getSelectedItem() == "Gold")
+    	{
+    		try
+    		{
+    			Class.forName("com.mysql.jdbc.Driver");
+    			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
+    			PreparedStatement pst  = conn.prepareStatement("Select `id` as ID, `product_name` AS PRODUCT, `Purity` AS PURITY, `location` AS LOCATION, `gross_weight` AS `GROSS WEIGHT`, date(`date&time`) AS `CREATED ON` From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 1 and (Purity = \"Regular\" OR Purity = \"KDM\" )");
+    			PreparedStatement pst1 = conn.prepareStatement("Select sum(`gross_weight`) From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 1 and (Purity = \"Regular\" OR Purity = \"KDM\")");
+    			pst1.setDate(1, fromdate);
+    			pst1.setDate(2, todate);
+    			pst.setDate(1, fromdate);
+    			pst.setDate(2, todate);
+    			ResultSet rs = pst.executeQuery();
+    			ResultSet rs1 = pst1.executeQuery();
+    			if(rs!=null)
+    			{
+    				jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+    			}
+    			if(rs1.next())
+    			{
+    				textField.setText(String.valueOf(rs1.getDouble(1)));
+    			}
+    		}
+    		catch(Exception e)
+    		{
+    			e.printStackTrace();
+    		}
+    	}else if(jComboBox1.getSelectedItem().toString() == "In Stock" && comboBox.getSelectedItem() == "Silver")
+    	{
+    		try
+    		{
+    			Class.forName("com.mysql.jdbc.Driver");
+    			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
+    			PreparedStatement pst  = conn.prepareStatement("Select `id` as ID, `product_name` AS PRODUCT, `Purity` AS PURITY, `location` AS LOCATION, `gross_weight` AS `GROSS WEIGHT`, date(`date&time`) AS `CREATED ON` From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 1 and (Purity = \"Silver\" OR Purity = \"92M-Silver\" )");
+    			PreparedStatement pst1 = conn.prepareStatement("Select sum(`gross_weight`) From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 1 and (Purity = \"Silver\" OR Purity = \"92M-Silver\")");
+    			pst1.setDate(1, fromdate);
+    			pst1.setDate(2, todate);
+    			pst.setDate(1, fromdate);
+    			pst.setDate(2, todate);
+    			ResultSet rs = pst.executeQuery();
+    			ResultSet rs1 = pst1.executeQuery();
+    			if(rs!=null)
+    			{
+    				jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+    			}
+    			if(rs1.next())
+    			{
+    				textField.setText(String.valueOf(rs1.getDouble(1)));
+    			}
+    		}
+    		catch(Exception e)
+    		{
+    			e.printStackTrace();
+    		}
+    	}else if(jComboBox1.getSelectedItem().toString() == "Sold Out" && comboBox.getSelectedItem() == "Silver")
+    	{
+    		try
+    		{
+    			Class.forName("com.mysql.jdbc.Driver");
+    			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
+    			PreparedStatement pst  = conn.prepareStatement("Select `id` as ID, `product_name` AS PRODUCT, `Purity` AS PURITY, `location` AS LOCATION, `gross_weight` AS `GROSS WEIGHT`, date(`date&time`) AS `CREATED ON` From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 0 and (Purity = \"Silver\" OR Purity = \"92M-Silver\" )");
+    			PreparedStatement pst1 = conn.prepareStatement("Select sum(`gross_weight`) From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 0 and (Purity = \"Silver\" OR Purity = \"92M-Silver\" )");
+    			pst1.setDate(1, fromdate);
+    			pst1.setDate(2, todate);
+    			pst.setDate(1, fromdate);
+    			pst.setDate(2, todate);
+    			ResultSet rs = pst.executeQuery();
+    			ResultSet rs1 = pst1.executeQuery();
+    			if(rs1.next())
+    			{
+    				textField.setText(String.valueOf(rs1.getDouble(1)));
+    			}
+    			if(rs!=null)
+    			{
+    				jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+    			}
+    		}
+    		catch(Exception e)
+    		{
+    			e.printStackTrace();
+    		}
+    	}else if(jComboBox1.getSelectedItem().toString() == "Sold Out" && comboBox.getSelectedItem() == "Gold")
+    	{
+    		try
+    		{
+    			Class.forName("com.mysql.jdbc.Driver");
+    			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
+    			PreparedStatement pst  = conn.prepareStatement("Select `id` as ID, `product_name` AS PRODUCT, `Purity` AS PURITY, `location` AS LOCATION, `gross_weight` AS `GROSS WEIGHT`, date(`date&time`) AS `CREATED ON` From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 0 and (Purity = \"Regular\" OR Purity = \"KDM\" )");
+    			PreparedStatement pst1 = conn.prepareStatement("Select sum(`gross_weight`) From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 0 and (Purity = \"Regular\" OR Purity = \"KDM\" )");
+    			pst1.setDate(1, fromdate);
+    			pst1.setDate(2, todate);
+    			pst.setDate(1, fromdate);
+    			pst.setDate(2, todate);
+    			ResultSet rs = pst.executeQuery();
+    			ResultSet rs1 = pst1.executeQuery();
+    			if(rs1.next())
+    			{
+    				textField.setText(String.valueOf(rs1.getDouble(1)));
+    			}
+    			if(rs!=null)
+    			{
+    				jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+    			}
+    		}
+    		catch(Exception e)
+    		{
+    			e.printStackTrace();
+    		}
+    	}else if(jComboBox1.getSelectedItem().toString() == "Sold Out" && comboBox.getSelectedItem() == "All")
+    	{
+    		try
+    		{
+    			Class.forName("com.mysql.jdbc.Driver");
+    			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
+    			PreparedStatement pst  = conn.prepareStatement("Select `id` as ID, `product_name` AS PRODUCT, `Purity` AS PURITY, `location` AS LOCATION, `gross_weight` AS `GROSS WEIGHT`, date(`date&time`) AS `CREATED ON` From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 0");
+    			PreparedStatement pst1 = conn.prepareStatement("Select sum(`gross_weight`) From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 0");
+    			pst1.setDate(1, fromdate);
+    			pst1.setDate(2, todate);
+    			pst.setDate(1, fromdate);
+    			pst.setDate(2, todate);
+    			ResultSet rs = pst.executeQuery();
+    			ResultSet rs1 = pst1.executeQuery();
+    			if(rs1.next())
+    			{
+    				textField.setText(String.valueOf(rs1.getDouble(1)));
+    			}
+    			if(rs!=null)
+    			{
+    				jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+    			}
+    		}
+    		catch(Exception e)
+    		{
+    			e.printStackTrace();
+    		}
+    	}
     }                                          
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
@@ -308,5 +632,8 @@ public class customreportresult extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    // End of variables declaration                   
+    private JLabel lblNewLabel;
+    private JComboBox comboBox;
+    private JLabel lblTotalWeight;
+    private JTextField textField;
 }

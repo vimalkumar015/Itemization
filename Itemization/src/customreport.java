@@ -140,7 +140,7 @@ public class customreport extends javax.swing.JFrame {
         todate = Date.valueOf(df.format(jDateChooser2.getDate()));
         if(fromdate !=null && todate !=null)
         {
-        if(todate.compareTo(fromdate) == 1){
+        if(todate.compareTo(fromdate) == 1 || fromdate.equals(todate)){
             customreportresult.main(fromdate, todate);
             this.dispose();
         }else

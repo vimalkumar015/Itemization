@@ -81,7 +81,7 @@ public class newitem {
 			e.printStackTrace();
 		}
 		id = oldid + 1;
-		System.out.println(id);
+		
 	}
 
 	public static void main(String[] args) {
