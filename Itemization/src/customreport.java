@@ -142,6 +142,7 @@ public class customreport extends javax.swing.JFrame {
         {
         if(todate.compareTo(fromdate) == 1 || fromdate.equals(todate)){
             customreportresult.main(fromdate, todate);
+            System.out.println(fromdate+"/n"+todate);
             this.dispose();
         }else
         {

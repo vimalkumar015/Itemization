@@ -86,7 +86,7 @@ public class customreportresult extends javax.swing.JFrame {
 
         jLabel1.setText("From");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None", "In Stock", "Sold Out" }));
+        jComboBox1.setModel(new DefaultComboBoxModel(new String[] {"None", "In Stock", "Sold Out"}));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -277,8 +277,8 @@ public class customreportresult extends javax.swing.JFrame {
     		{
     			Class.forName("com.mysql.jdbc.Driver");
     			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
-    			PreparedStatement pst  = conn.prepareStatement("Select `id` as ID, `product_name` AS PRODUCT, `Purity` AS PURITY, `location` AS LOCATION, `gross_weight` AS `GROSS WEIGHT`, date(`date&time`) AS `CREATED ON` From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 0 and (Purity = \"Silver\" OR Purity = \"92M-Silver\" )");
-    			PreparedStatement pst1 = conn.prepareStatement("Select sum(`gross_weight`) From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 0 and (Purity = \"Silver\" OR Purity = \"92M-Silver\" )");
+    			PreparedStatement pst  = conn.prepareStatement("SELECT stocklist.id AS `ID`, stocklist.product_name AS `Product Name`, stocklist.Purity AS `Purity`, stocklist.location AS `Location`, stocklist.gross_weight AS `Gross Weight`, date(stocklist.`date&time`) AS `Created On`, date(soldoutdate.`sold date`) AS `Sold On` FROM `stocklist` JOIN `soldoutdate` WHERE stocklist.id = soldoutdate.id AND flag = 0 AND date(soldoutdate.`sold date`) BETWEEN ? AND ? AND (stocklist.Purity = \"92M-Silver\" OR stocklist.Purity = \"Silver\") ORDER BY date(soldoutdate.`sold date`)");
+    			PreparedStatement pst1 = conn.prepareStatement("select SUM(stocklist.`gross_weight`) FROM stocklist JOIN soldoutdate WHERE stocklist.id = soldoutdate.id AND date(soldoutdate.`sold date`) BETWEEN ? AND ? AND stocklist.flag = 0 and (Purity = \"Silver\" OR Purity = \"92M-Silver\" )");
     			pst1.setDate(1, fromdate);
     			pst1.setDate(2, todate);
     			pst.setDate(1, fromdate);
@@ -304,8 +304,8 @@ public class customreportresult extends javax.swing.JFrame {
     		{
     			Class.forName("com.mysql.jdbc.Driver");
     			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
-    			PreparedStatement pst  = conn.prepareStatement("Select `id` as ID, `product_name` AS PRODUCT, `Purity` AS PURITY, `location` AS LOCATION, `gross_weight` AS `GROSS WEIGHT`, date(`date&time`) AS `CREATED ON` From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 0 and (Purity = \"Regular\" OR Purity = \"KDM\" )");
-    			PreparedStatement pst1 = conn.prepareStatement("Select sum(`gross_weight`) From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 0 and (Purity = \"Regular\" OR Purity = \"KDM\" )");
+    			PreparedStatement pst  = conn.prepareStatement("SELECT stocklist.id AS `ID`, stocklist.product_name AS `Product Name`, stocklist.Purity AS `Purity`, stocklist.location AS `Location`, stocklist.gross_weight AS `Gross Weight`, date(stocklist.`date&time`) AS `Created On`, date(soldoutdate.`sold date`) AS `Sold On` FROM `stocklist` JOIN `soldoutdate` WHERE stocklist.id = soldoutdate.id AND flag = 0 AND date(soldoutdate.`sold date`) BETWEEN ? AND ? AND (stocklist.Purity = \"KDM\" OR stocklist.Purity = \"Regular\") ORDER BY date(soldoutdate.`sold date`)");
+    			PreparedStatement pst1 = conn.prepareStatement("select SUM(stocklist.`gross_weight`) FROM stocklist JOIN soldoutdate WHERE stocklist.id = soldoutdate.id AND date(soldoutdate.`sold date`) BETWEEN ? AND ? AND stocklist.flag = 0 and (Purity = \"Regular\" OR Purity = \"KDM\" )");
     			pst1.setDate(1, fromdate);
     			pst1.setDate(2, todate);
     			pst.setDate(1, fromdate);
@@ -331,8 +331,8 @@ public class customreportresult extends javax.swing.JFrame {
     		{
     			Class.forName("com.mysql.jdbc.Driver");
     			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
-    			PreparedStatement pst  = conn.prepareStatement("Select `id` as ID, `product_name` AS PRODUCT, `Purity` AS PURITY, `location` AS LOCATION, `gross_weight` AS `GROSS WEIGHT`, date(`date&time`) AS `CREATED ON` From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 0");
-    			PreparedStatement pst1 = conn.prepareStatement("Select sum(`gross_weight`) From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 0");
+    			PreparedStatement pst  = conn.prepareStatement("SELECT stocklist.id AS `ID`, stocklist.product_name AS `Product Name`, stocklist.Purity AS `Purity`, stocklist.location AS `Location`, stocklist.gross_weight AS `Gross Weight`, date(stocklist.`date&time`) AS `Created On`, date(soldoutdate.`sold date`) AS `Sold On` FROM `stocklist` JOIN `soldoutdate` WHERE stocklist.id = soldoutdate.id AND flag = 0 AND date(soldoutdate.`sold date`) BETWEEN ? AND ? ORDER BY date(soldoutdate.`sold date`)");
+    			PreparedStatement pst1 = conn.prepareStatement("select SUM(stocklist.`gross_weight`) FROM stocklist JOIN soldoutdate WHERE stocklist.id = soldoutdate.id AND date(soldoutdate.`sold date`) BETWEEN ? AND ? AND stocklist.flag = 0");
     			pst1.setDate(1, fromdate);
     			pst1.setDate(2, todate);
     			pst.setDate(1, fromdate);
@@ -442,8 +442,8 @@ public class customreportresult extends javax.swing.JFrame {
     		{
     			Class.forName("com.mysql.jdbc.Driver");
     			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
-    			PreparedStatement pst  = conn.prepareStatement("Select `id` as ID, `product_name` AS PRODUCT, `Purity` AS PURITY, `location` AS LOCATION, `gross_weight` AS `GROSS WEIGHT`, date(`date&time`) AS `CREATED ON` From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 0 and (Purity = \"Silver\" OR Purity = \"92M-Silver\" )");
-    			PreparedStatement pst1 = conn.prepareStatement("Select sum(`gross_weight`) From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 0 and (Purity = \"Silver\" OR Purity = \"92M-Silver\" )");
+    			PreparedStatement pst  = conn.prepareStatement("SELECT stocklist.id AS `ID`, stocklist.product_name AS `Product Name`, stocklist.Purity AS `Purity`, stocklist.location AS `Location`, stocklist.gross_weight AS `Gross Weight`, date(stocklist.`date&time`) AS `Created On`, date(soldoutdate.`sold date`) AS `Sold On` FROM `stocklist` JOIN `soldoutdate` WHERE stocklist.id = soldoutdate.id AND flag = 0 AND date(soldoutdate.`sold date`) BETWEEN ? AND ? AND (stocklist.Purity = \"92M-Silver\" OR stocklist.Purity = \"Silver\") ORDER BY date(soldoutdate.`sold date`)");
+    			PreparedStatement pst1 = conn.prepareStatement("select SUM(stocklist.`gross_weight`) FROM stocklist JOIN soldoutdate WHERE stocklist.id = soldoutdate.id AND date(soldoutdate.`sold date`) BETWEEN ? AND ? AND stocklist.flag = 0 and (Purity = \"Silver\" OR Purity = \"92M-Silver\" )");
     			pst1.setDate(1, fromdate);
     			pst1.setDate(2, todate);
     			pst.setDate(1, fromdate);
@@ -469,8 +469,8 @@ public class customreportresult extends javax.swing.JFrame {
     		{
     			Class.forName("com.mysql.jdbc.Driver");
     			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
-    			PreparedStatement pst  = conn.prepareStatement("Select `id` as ID, `product_name` AS PRODUCT, `Purity` AS PURITY, `location` AS LOCATION, `gross_weight` AS `GROSS WEIGHT`, date(`date&time`) AS `CREATED ON` From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 0 and (Purity = \"Regular\" OR Purity = \"KDM\" )");
-    			PreparedStatement pst1 = conn.prepareStatement("Select sum(`gross_weight`) From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 0 and (Purity = \"Regular\" OR Purity = \"KDM\" )");
+    			PreparedStatement pst  = conn.prepareStatement("SELECT stocklist.id AS `ID`, stocklist.product_name AS `Product Name`, stocklist.Purity AS `Purity`, stocklist.location AS `Location`, stocklist.gross_weight AS `Gross Weight`, date(stocklist.`date&time`) AS `Created On`, date(soldoutdate.`sold date`) AS `Sold On` FROM `stocklist` JOIN `soldoutdate` WHERE stocklist.id = soldoutdate.id AND flag = 0 AND date(soldoutdate.`sold date`) BETWEEN ? AND ? AND (stocklist.Purity = \"KDM\" OR stocklist.Purity = \"Regular\") ORDER BY date(soldoutdate.`sold date`)");
+    			PreparedStatement pst1 = conn.prepareStatement("select SUM(stocklist.`gross_weight`) FROM stocklist JOIN soldoutdate WHERE stocklist.id = soldoutdate.id AND date(soldoutdate.`sold date`) BETWEEN ? AND ? AND stocklist.flag = 0 and (Purity = \"Regular\" OR Purity = \"KDM\" )");
     			pst1.setDate(1, fromdate);
     			pst1.setDate(2, todate);
     			pst.setDate(1, fromdate);
@@ -496,8 +496,8 @@ public class customreportresult extends javax.swing.JFrame {
     		{
     			Class.forName("com.mysql.jdbc.Driver");
     			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
-    			PreparedStatement pst  = conn.prepareStatement("Select `id` as ID, `product_name` AS PRODUCT, `Purity` AS PURITY, `location` AS LOCATION, `gross_weight` AS `GROSS WEIGHT`, date(`date&time`) AS `CREATED ON` From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 0");
-    			PreparedStatement pst1 = conn.prepareStatement("Select sum(`gross_weight`) From `stocklist` WHERE date(`date&time`) between ? and ? and flag = 0");
+    			PreparedStatement pst  = conn.prepareStatement("SELECT stocklist.id AS `ID`, stocklist.product_name AS `Product Name`, stocklist.Purity AS `Purity`, stocklist.location AS `Location`, stocklist.gross_weight AS `Gross Weight`, date(stocklist.`date&time`) AS `Created On`, date(soldoutdate.`sold date`) AS `Sold On` FROM `stocklist` JOIN `soldoutdate` WHERE stocklist.id = soldoutdate.id AND flag = 0 AND date(soldoutdate.`sold date`) BETWEEN ? AND ? ORDER BY date(soldoutdate.`sold date`)");
+    			PreparedStatement pst1 = conn.prepareStatement("select SUM(stocklist.`gross_weight`) FROM stocklist JOIN soldoutdate WHERE stocklist.id = soldoutdate.id AND date(soldoutdate.`sold date`) BETWEEN ? AND ? AND stocklist.flag = 0");
     			pst1.setDate(1, fromdate);
     			pst1.setDate(2, todate);
     			pst.setDate(1, fromdate);
