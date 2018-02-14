@@ -48,7 +48,7 @@ public class searchbyidresult {
 		{
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
-			PreparedStatement pst = (PreparedStatement) con.prepareStatement("select * from stocklist where id = ?");
+			PreparedStatement pst = (PreparedStatement) con.prepareStatement("select * from stocklist where id = ?");			
 			pst.setInt(1,id);
 			ResultSet rs =pst.executeQuery();
 			if(rs.next())
@@ -63,6 +63,25 @@ public class searchbyidresult {
 		}
 		catch(Exception e) {
 			e.printStackTrace();
+		}
+		if(flag == 0)
+		{
+			try
+			{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
+			PreparedStatement pst = (PreparedStatement) conn.prepareStatement("select * from soldoutdate where id = ?");
+			pst.setInt(1, id);
+			ResultSet rs =pst.executeQuery();
+			if(rs.next())
+			{
+				date = rs.getDate(2);
+			}
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 	public static void main(int getid) {
@@ -155,6 +174,7 @@ public class searchbyidresult {
 			else
 			{
 			textField_5.setText("Sold Out");
+			lblCreatedDate.setText("Sold On");
 			}
 		textField_5.setColumns(10);
 		
