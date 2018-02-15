@@ -19,12 +19,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.Toolkit;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class addlocation {
 
 	private JFrame frmItemizationAdd;
 	private JTextField textField;
 	static String loc;
+	static JComboBox comboBox;
 
 	/**
 	 * Launch the application.
@@ -73,10 +76,12 @@ public class addlocation {
 					{
 						Class.forName("com.mysql.jdbc.Driver");
 						Connection con=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
-						PreparedStatement stmt = (PreparedStatement) con.prepareStatement("INSERT INTO `location`(`name`) VALUES (?)");
+						PreparedStatement stmt = (PreparedStatement) con.prepareStatement("INSERT INTO `location`(`name`,`type`) VALUES (?,?)");
 						stmt.setString(1, loc);
-						PreparedStatement stmt1 = (PreparedStatement) con.prepareStatement("Select name from `location` where name = ?");
+						stmt.setString(2, comboBox.getSelectedItem().toString());
+						PreparedStatement stmt1 = (PreparedStatement) con.prepareStatement("Select name from `location` where name = ? and type = ?");
 						stmt1.setString(1, loc);
+						stmt1.setString(2, comboBox.getSelectedItem().toString());
 						ResultSet rs = stmt1.executeQuery();
 						if(rs.next())
 						{
@@ -129,10 +134,12 @@ public class addlocation {
 					{
 						Class.forName("com.mysql.jdbc.Driver");
 						Connection con=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
-						PreparedStatement stmt = (PreparedStatement) con.prepareStatement("INSERT INTO `location`(`name`) VALUES (?)");
+						PreparedStatement stmt = (PreparedStatement) con.prepareStatement("INSERT INTO `location`(`name`,`type`) VALUES (?,?)");
 						stmt.setString(1, loc);
-						PreparedStatement stmt1 = (PreparedStatement) con.prepareStatement("Select name from `location` where name = ?");
+						stmt.setString(2, comboBox.getSelectedItem().toString());
+						PreparedStatement stmt1 = (PreparedStatement) con.prepareStatement("Select name from `location` where name = ? and type = ?");
 						stmt1.setString(1, loc);
+						stmt1.setString(2, comboBox.getSelectedItem().toString());
 						ResultSet rs = stmt1.executeQuery();
 						if(rs.next())
 						{
@@ -161,10 +168,12 @@ public class addlocation {
 				{
 					Class.forName("com.mysql.jdbc.Driver");
 					Connection con=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
-					PreparedStatement stmt = (PreparedStatement) con.prepareStatement("INSERT INTO `location`(`name`) VALUES (?)");
+					PreparedStatement stmt = (PreparedStatement) con.prepareStatement("INSERT INTO `location`(`name`,`type`) VALUES (?,?)");
 					stmt.setString(1, loc);
-					PreparedStatement stmt1 = (PreparedStatement) con.prepareStatement("Select name from `location` where name = ?");
+					stmt.setString(2, comboBox.getSelectedItem().toString());
+					PreparedStatement stmt1 = (PreparedStatement) con.prepareStatement("Select name from `location` where name = ? and type = ?");
 					stmt1.setString(1, loc);
+					stmt1.setString(2, comboBox.getSelectedItem().toString());
 					ResultSet rs = stmt1.executeQuery();
 					if(rs.next())
 					{
@@ -181,21 +190,30 @@ public class addlocation {
 				}
 			}
 		});
+		
+		JLabel lblLocationType = new JLabel("Location Type");
+		
+		comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "GOLD", "SILVER"}));
 		GroupLayout groupLayout = new GroupLayout(frmItemizationAdd.getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(30)
-					.addComponent(lblEnterTheLocation)
-					.addGap(40)
-					.addComponent(textField, GroupLayout.PREFERRED_SIZE, 179, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(67, Short.MAX_VALUE))
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-					.addContainerGap(94, Short.MAX_VALUE)
+					.addContainerGap(116, Short.MAX_VALUE)
 					.addComponent(btnUpdate)
 					.addGap(67)
 					.addComponent(btnBack)
 					.addGap(129))
+				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+					.addGap(30)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblEnterTheLocation)
+						.addComponent(lblLocationType))
+					.addGap(40)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textField, GroupLayout.PREFERRED_SIZE, 179, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(67, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -204,7 +222,11 @@ public class addlocation {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblEnterTheLocation)
 						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(66)
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblLocationType)
+						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(34)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnBack)
 						.addComponent(btnUpdate))
@@ -212,5 +234,4 @@ public class addlocation {
 		);
 		frmItemizationAdd.getContentPane().setLayout(groupLayout);
 	}
-
 }

@@ -114,32 +114,57 @@ public class location {
 				frmItemizationEdit.dispose();
 			}
 		});
+		
+		JButton btnEditLocation = new JButton("Edit Location");
+		btnEditLocation.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER)
+				{
+					editlocation.main(null);
+					frmItemizationEdit.dispose();
+				}
+				else if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
+				{
+					HomePage.main(null);
+					frmItemizationEdit.dispose();
+				}
+			}
+		});
+		btnEditLocation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				editlocation.main(null);
+				frmItemizationEdit.dispose();
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(frmItemizationEdit.getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(65)
-					.addComponent(btnAddNewLocation)
-					.addGap(66)
+					.addGap(24)
+					.addComponent(btnAddNewLocation, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGap(18)
+					.addComponent(btnEditLocation)
+					.addGap(18)
 					.addComponent(btnDeleteLocation)
-					.addContainerGap(95, Short.MAX_VALUE))
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-					.addContainerGap(191, Short.MAX_VALUE)
-					.addComponent(btnBack)
-					.addGap(188))
+					.addGap(55))
+				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+					.addGap(121)
+					.addComponent(btnBack, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(136, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(72)
+					.addGap(85)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnAddNewLocation)
+						.addComponent(btnEditLocation)
 						.addComponent(btnDeleteLocation))
-					.addGap(49)
+					.addGap(51)
 					.addComponent(btnBack)
-					.addContainerGap(94, Short.MAX_VALUE))
+					.addContainerGap(79, Short.MAX_VALUE))
 		);
 		frmItemizationEdit.getContentPane().setLayout(groupLayout);
 	}
-
 }

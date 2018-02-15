@@ -140,7 +140,7 @@ public class HomePage {
 			}
 		});
 		
-		JButton btnNewButton = new JButton("Edit Product Name");
+		JButton btnNewButton = new JButton("Product Name");
 		btnNewButton.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -158,7 +158,7 @@ public class HomePage {
 			}
 		});
 		
-		JButton btnAddNewLocation = new JButton("Edit Location");
+		JButton btnAddNewLocation = new JButton("Location");
 		btnAddNewLocation.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -176,7 +176,7 @@ public class HomePage {
 			}
 		});
 		
-		JButton btnNewButton_1 = new JButton("Edit Item");
+		JButton btnNewButton_1 = new JButton("Item");
 		btnNewButton_1.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
