@@ -82,6 +82,40 @@ public class editlocationfinal {
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"GOLD", "SILVER"}));
 		
 		JButton btnSubmit = new JButton("Submit");
+		btnSubmit.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e1) {
+				if(e1.getKeyCode() == KeyEvent.VK_ENTER)
+				{
+					try
+					{
+						Class.forName("com.mysql.jdbc.Driver");
+						Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false", "root","");
+						PreparedStatement stmt = con.prepareStatement("UPDATE `location` SET `type`=? WHERE `name` = ?");
+						stmt.setString(1, comboBox.getSelectedItem().toString());
+						stmt.setString(2, search);
+						if(stmt.execute())
+						{
+							JOptionPane.showMessageDialog(null, "Something Went Wrong. Please Contact Admin");
+						}else
+						{
+							JOptionPane.showMessageDialog(null, textField.getText()+" is Updated Succesfully");
+							location.main(null);
+							frmItemizationEdit.dispose();
+						}
+						
+					}
+					catch(Exception e)
+					{
+						e.printStackTrace();
+					}
+				}else if(e1.getKeyCode() == KeyEvent.VK_BACK_SPACE)
+				{
+					editlocation.main(null);
+					frmItemizationEdit.dispose();
+				}
+			}
+		});
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try
@@ -93,10 +127,12 @@ public class editlocationfinal {
 					stmt.setString(2, search);
 					if(stmt.execute())
 					{
-						//JOptionPane.showMessageDialog(arg0, "");
+						JOptionPane.showMessageDialog(null, "Something Went Wrong. Please Contact Admin");
 					}else
 					{
-						System.out.println(0);
+						JOptionPane.showMessageDialog(null, textField.getText()+" is Updated Succesfully");
+						location.main(null);
+						frmItemizationEdit.dispose();
 					}
 					
 				}
@@ -107,24 +143,24 @@ public class editlocationfinal {
 			}
 		});
 		
-		JButton btnCancel = new JButton("Cancel");
+		JButton btnCancel = new JButton("Back");
 		btnCancel.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER)
 				{
-					location.main(null);
+					editlocation.main(null);
 					frmItemizationEdit.dispose();
 				}else if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
 				{
-					location.main(null);
+					editlocation.main(null);
 					frmItemizationEdit.dispose();
 				}
 			}
 		});
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				location.main(null);
+				editlocation.main(null);
 				frmItemizationEdit.dispose();
 			}
 		});

@@ -44,10 +44,6 @@ public class stock_count_navi {
 		frmItemizationStock.setIconImage(Toolkit.getDefaultToolkit().getImage(stock_count_navi.class.getResource("/images/itemization_logo.png")));
 		frmItemizationStock.getContentPane().setBackground(new Color(176, 224, 230));
 		
-		JButton btnDisplayStock = new JButton("Display Stock");
-		
-		JButton btnBoxStock = new JButton("Box Stock");
-		
 		JButton btnBack = new JButton("Back");
 		GroupLayout groupLayout = new GroupLayout(frmItemizationStock.getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -55,22 +51,12 @@ public class stock_count_navi {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(151)
 					.addComponent(btnBack, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(56, Short.MAX_VALUE))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(47)
-					.addComponent(btnDisplayStock, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
-					.addComponent(btnBoxStock, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)
-					.addGap(56))
+					.addContainerGap(157, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-					.addContainerGap(87, Short.MAX_VALUE)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnDisplayStock)
-						.addComponent(btnBoxStock))
-					.addGap(60)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap(170, Short.MAX_VALUE)
 					.addComponent(btnBack)
 					.addGap(68))
 		);

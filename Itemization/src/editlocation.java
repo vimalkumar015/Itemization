@@ -105,6 +105,21 @@ public class editlocation {
 		});
 		
 		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent ae) {
+				if(ae.getKeyCode() == KeyEvent.VK_ENTER)
+				{
+					location.main(null);
+					frmItemizationEdit.dispose(); 	
+				}
+				else if(ae.getKeyCode() == KeyEvent.VK_BACK_SPACE)
+				{
+					location.main(null);
+					frmItemizationEdit.dispose(); 
+				}
+			}
+		});
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				location.main(null);
