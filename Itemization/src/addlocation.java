@@ -28,6 +28,7 @@ public class addlocation {
 	private JTextField textField;
 	static String loc;
 	static JComboBox comboBox;
+	private JTextField textField_1;
 
 	/**
 	 * Launch the application.
@@ -76,9 +77,10 @@ public class addlocation {
 					{
 						Class.forName("com.mysql.jdbc.Driver");
 						Connection con=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
-						PreparedStatement stmt = (PreparedStatement) con.prepareStatement("INSERT INTO `location`(`name`,`type`) VALUES (?,?)");
+						PreparedStatement stmt = (PreparedStatement) con.prepareStatement("INSERT INTO `location`(`name`,`type`,`count`) VALUES (?,?,?)");
 						stmt.setString(1, loc);
 						stmt.setString(2, comboBox.getSelectedItem().toString());
+						stmt.setInt(3, Integer.valueOf(textField_1.getText()));
 						PreparedStatement stmt1 = (PreparedStatement) con.prepareStatement("Select name from `location` where name = ? and type = ?");
 						stmt1.setString(1, loc);
 						stmt1.setString(2, comboBox.getSelectedItem().toString());
@@ -134,9 +136,10 @@ public class addlocation {
 					{
 						Class.forName("com.mysql.jdbc.Driver");
 						Connection con=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
-						PreparedStatement stmt = (PreparedStatement) con.prepareStatement("INSERT INTO `location`(`name`,`type`) VALUES (?,?)");
+						PreparedStatement stmt = (PreparedStatement) con.prepareStatement("INSERT INTO `location`(`name`,`type`,`count`) VALUES (?,?,?)");
 						stmt.setString(1, loc);
 						stmt.setString(2, comboBox.getSelectedItem().toString());
+						stmt.setInt(3, Integer.valueOf(textField_1.getText()));
 						PreparedStatement stmt1 = (PreparedStatement) con.prepareStatement("Select name from `location` where name = ? and type = ?");
 						stmt1.setString(1, loc);
 						stmt1.setString(2, comboBox.getSelectedItem().toString());
@@ -168,9 +171,10 @@ public class addlocation {
 				{
 					Class.forName("com.mysql.jdbc.Driver");
 					Connection con=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
-					PreparedStatement stmt = (PreparedStatement) con.prepareStatement("INSERT INTO `location`(`name`,`type`) VALUES (?,?)");
+					PreparedStatement stmt = (PreparedStatement) con.prepareStatement("INSERT INTO `location`(`name`,`type`,`count`) VALUES (?,?,?)");
 					stmt.setString(1, loc);
 					stmt.setString(2, comboBox.getSelectedItem().toString());
+					stmt.setInt(3, Integer.valueOf(textField_1.getText()));
 					PreparedStatement stmt1 = (PreparedStatement) con.prepareStatement("Select name from `location` where name = ? and type = ?");
 					stmt1.setString(1, loc);
 					stmt1.setString(2, comboBox.getSelectedItem().toString());
@@ -195,24 +199,76 @@ public class addlocation {
 		
 		comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "GOLD", "SILVER"}));
+		
+		JLabel lblMaximumCount = new JLabel("Maximum Count");
+		
+		textField_1 = new JTextField();
+		textField_1.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent evt) {
+				char vcahr = evt.getKeyChar();
+				if(!Character.isDigit(vcahr))
+				{
+					evt.consume();
+				}
+			}
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER)
+				{
+					loc = textField.getText().toUpperCase();
+					try
+					{
+						Class.forName("com.mysql.jdbc.Driver");
+						Connection con=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
+						PreparedStatement stmt = (PreparedStatement) con.prepareStatement("INSERT INTO `location`(`name`,`type`,`count`) VALUES (?,?,?)");
+						stmt.setString(1, loc);
+						stmt.setString(2, comboBox.getSelectedItem().toString());
+						stmt.setInt(3, Integer.valueOf(textField_1.getText()));
+						PreparedStatement stmt1 = (PreparedStatement) con.prepareStatement("Select name from `location` where name = ? and type = ?");
+						stmt1.setString(1, loc);
+						stmt1.setString(2, comboBox.getSelectedItem().toString());
+						ResultSet rs = stmt1.executeQuery();
+						if(rs.next())
+						{
+							JOptionPane.showMessageDialog(null, loc+" is Already Exist in the Database");
+						}else
+						{
+							stmt.execute();
+							JOptionPane.showMessageDialog(null, loc+" is updated to the Database Successfully");
+						}
+						
+					}catch(Exception e1)
+					{
+						e1.printStackTrace();
+					}
+				
+					
+				}
+			}
+		});
+		textField_1.setColumns(10);
 		GroupLayout groupLayout = new GroupLayout(frmItemizationAdd.getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(116, Short.MAX_VALUE)
-					.addComponent(btnUpdate)
-					.addGap(67)
-					.addComponent(btnBack)
-					.addGap(129))
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-					.addGap(30)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblEnterTheLocation)
-						.addComponent(lblLocationType))
-					.addGap(40)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, 179, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(30)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblEnterTheLocation)
+								.addComponent(lblLocationType)
+								.addComponent(lblMaximumCount))
+							.addGap(40)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(textField, GroupLayout.PREFERRED_SIZE, 179, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(101)
+							.addComponent(btnUpdate)
+							.addGap(85)
+							.addComponent(btnBack)))
 					.addContainerGap(67, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
@@ -226,11 +282,15 @@ public class addlocation {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblLocationType)
 						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(34)
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(lblMaximumCount)
+						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(43)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnBack)
-						.addComponent(btnUpdate))
-					.addContainerGap(105, Short.MAX_VALUE))
+						.addComponent(btnUpdate)
+						.addComponent(btnBack))
+					.addContainerGap(58, Short.MAX_VALUE))
 		);
 		frmItemizationAdd.getContentPane().setLayout(groupLayout);
 	}

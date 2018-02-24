@@ -31,6 +31,7 @@ public class editlocationfinal {
 	static String search;
 	private static JTextField textField;
 	static JComboBox comboBox;
+	private JTextField textField_1;
 
 	/**
 	 * Launch the application.
@@ -91,9 +92,10 @@ public class editlocationfinal {
 					{
 						Class.forName("com.mysql.jdbc.Driver");
 						Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false", "root","");
-						PreparedStatement stmt = con.prepareStatement("UPDATE `location` SET `type`=? WHERE `name` = ?");
+						PreparedStatement stmt = con.prepareStatement("UPDATE `location` SET `type`=?,`count`=? WHERE `name` = ?");
 						stmt.setString(1, comboBox.getSelectedItem().toString());
-						stmt.setString(2, search);
+						stmt.setInt(2, Integer.valueOf(textField_1.getText()));
+						stmt.setString(3, search);
 						if(stmt.execute())
 						{
 							JOptionPane.showMessageDialog(null, "Something Went Wrong. Please Contact Admin");
@@ -122,9 +124,10 @@ public class editlocationfinal {
 				{
 					Class.forName("com.mysql.jdbc.Driver");
 					Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false", "root","");
-					PreparedStatement stmt = con.prepareStatement("UPDATE `location` SET `type`=? WHERE `name` = ?");
+					PreparedStatement stmt = con.prepareStatement("UPDATE `location` SET `type`=?,`count`=? WHERE `name` = ?");
 					stmt.setString(1, comboBox.getSelectedItem().toString());
-					stmt.setString(2, search);
+					stmt.setInt(2, Integer.valueOf(textField_1.getText()));
+					stmt.setString(3, search);
 					if(stmt.execute())
 					{
 						JOptionPane.showMessageDialog(null, "Something Went Wrong. Please Contact Admin");
@@ -164,6 +167,50 @@ public class editlocationfinal {
 				frmItemizationEdit.dispose();
 			}
 		});
+		
+		JLabel lblMaxCount = new JLabel("Max. Count");
+		
+		textField_1 = new JTextField();
+		textField_1.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent evt) {
+				char vchar = evt.getKeyChar();
+				if(!Character.isDigit(vchar))
+				{
+					evt.consume();
+				}
+			}
+			@Override
+			public void keyPressed(KeyEvent evt) {
+				if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+				{
+					try
+					{
+						Class.forName("com.mysql.jdbc.Driver");
+						Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false", "root","");
+						PreparedStatement stmt = con.prepareStatement("UPDATE `location` SET `type`=?,`count`=? WHERE `name` = ?");
+						stmt.setString(1, comboBox.getSelectedItem().toString());
+						stmt.setInt(2, Integer.valueOf(textField_1.getText()));
+						stmt.setString(3, search);
+						if(stmt.execute())
+						{
+							JOptionPane.showMessageDialog(null, "Something Went Wrong. Please Contact Admin");
+						}else
+						{
+							JOptionPane.showMessageDialog(null, textField.getText()+" is Updated Succesfully");
+							location.main(null);
+							frmItemizationEdit.dispose();
+						}
+						
+					}
+					catch(Exception e)
+					{
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		textField_1.setColumns(10);
 		GroupLayout groupLayout = new GroupLayout(frmItemizationEdit.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -173,17 +220,19 @@ public class editlocationfinal {
 							.addGap(37)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblLocationName)
+								.addComponent(lblMaxCount)
 								.addComponent(lblType))
 							.addGap(51)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(textField, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
-								.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
+								.addComponent(textField, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(94)
 							.addComponent(btnSubmit)
 							.addGap(78)
 							.addComponent(btnCancel)))
-					.addContainerGap(132, Short.MAX_VALUE))
+					.addContainerGap(142, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -192,11 +241,15 @@ public class editlocationfinal {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblLocationName)
 						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(30)
+					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblType)
+						.addComponent(lblType, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(61)
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(lblMaxCount)
+						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(29)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnCancel)
 						.addComponent(btnSubmit))

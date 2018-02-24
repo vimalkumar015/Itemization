@@ -119,7 +119,11 @@ public class customsalesupdate {
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER)
 				{
+					if(dateChooser != null )
+					{
 					try {
+						df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+						date=String.valueOf(df.format(dateChooser.getDate()));
 						Class.forName("com.mysql.jdbc.Driver");
 						Connection con=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
 						PreparedStatement stmt0 = (PreparedStatement) con.prepareStatement("Select * from stocklist where id= ?");
@@ -127,8 +131,9 @@ public class customsalesupdate {
 						ResultSet rs= stmt0.executeQuery();
 						PreparedStatement stmt =  (PreparedStatement) con.prepareStatement("UPDATE stocklist SET flag = 0 WHERE id = ?");
 						stmt.setInt(1, id);
-						PreparedStatement stmt1 = (PreparedStatement) con.prepareStatement("INSERT INTO `soldoutdate`(`id`) VALUES (?)");
+						PreparedStatement stmt1 = (PreparedStatement) con.prepareStatement("INSERT INTO `soldoutdate` (`id`, `sold date`) VALUES (?,?);");
 						stmt1.setInt(1, id);
+						stmt1.setTimestamp(2, Timestamp.valueOf(date));
 						if(rs.next())
 						{
 						if(rs.getInt(7) == 1)
@@ -136,9 +141,15 @@ public class customsalesupdate {
 							stmt.execute();
 							stmt1.execute();
 							JOptionPane.showMessageDialog(null, "Sucessfully updated the item status");
+							customsalesupdateid.main(null);
+							frmIteizationSales.dispose();
+						
 						}
 					else {
 							JOptionPane.showMessageDialog(null, "Item already updated as Sold Out");
+							customsalesupdateid.main(null);
+							frmIteizationSales.dispose();
+						
 					}
 					}
 					}
@@ -146,9 +157,10 @@ public class customsalesupdate {
 					{
 						e1.printStackTrace();
 					}
-					
-					HomePage.main(null);
-					frmIteizationSales.dispose();
+					}else
+					{
+						JOptionPane.showMessageDialog(null, "Please Select the Sold On Date");
+					}
 				}else if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
 				{
 					salesupdate.main(null);
