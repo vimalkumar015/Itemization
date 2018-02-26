@@ -5,5 +5,14 @@
 	<classpathentry kind="lib" path="C:/Users/NirmalGds/Desktop/New folder/jcalendar-1.4.jar"/>
 	<classpathentry kind="lib" path="C:/Users/NirmalGds/Desktop/New folder/mysql-connector-java-5.1.45-bin.jar"/>
 	<classpathentry kind="lib" path="C:/Users/NirmalGds/Desktop/New folder/rs2xml.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NirmalGds/Desktop/itext/itext7-barcodes-7.0.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NirmalGds/Desktop/itext/itext7-forms-7.0.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NirmalGds/Desktop/itext/itext7-hyph-7.0.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NirmalGds/Desktop/itext/itext7-io-7.0.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NirmalGds/Desktop/itext/itext7-kernel-7.0.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NirmalGds/Desktop/itext/itext7-layout-7.0.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NirmalGds/Desktop/itext/itext7-pdfa-7.0.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NirmalGds/Desktop/itext/itext7-pdftest-7.0.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/NirmalGds/Desktop/itext/itext7-sign-7.0.5.jar"/>
 	<classpathentry kind="output" path="Itemization/bin"/>
 </classpath>
