@@ -1,7 +1,10 @@
 import java.awt.Toolkit;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.awt.Color;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
@@ -12,6 +15,9 @@ import com.mysql.jdbc.PreparedStatement;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import com.sun.glass.events.KeyEvent;
+
+import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -22,15 +28,74 @@ public class location_wise_count_report extends javax.swing.JFrame {
     /**
      * Creates new form location_wise_count_report
      */
-	public void datafill()
+	
+	public static JFrame frame = new JFrame();
+	public static void checks()
 	{
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false\",\"root\",\"");
+			Connection conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
+			PreparedStatement pst = (PreparedStatement) conn.prepareStatement("select location,COUNT(*),SUM(gross_weight) FROM stocklist WHERE flag = 1 AND location = ? GROUP BY location");
+			pst.setString(1, loc);
+			ResultSet rs = pst.executeQuery();
+			if(rs.next())
+			{
+				check =0;
+			}else
+			{
+				check=1;
+			}
+			
+		}
+		catch(Exception E)
+		{
+			E.printStackTrace();
+		}
+	}
+	public static void datafill()
+	{
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
 			PreparedStatement pst = (PreparedStatement) conn.prepareStatement("select location,COUNT(*),SUM(gross_weight) FROM stocklist WHERE flag = 1 AND location = ? GROUP BY location");
 			PreparedStatement pst1 = (PreparedStatement) conn.prepareStatement("SELECT SUM(absent) FROM (SELECT location.name,count(stock.location),location.count,location.count - count(stock.location) as absent  FROM location LEFT OUTER JOIN (SELECT * FROM stocklist WHERE flag = 1) AS stock ON location.name = stock.location WHERE location.name = ? GROUP BY location.name) AS processed");
+			PreparedStatement pst2 = (PreparedStatement) conn.prepareStatement("Select id as ID from stocklist where flag = 1 and location = ?");
 			pst.setString(1, loc);
 			pst1.setString(1, loc);
+			pst2.setString(1, loc);
+			ResultSet rs = pst.executeQuery();
+			ResultSet rs1 = pst1.executeQuery();
+			ResultSet rs2 = pst2.executeQuery();
+			if(rs.next())
+			{
+				jTextField1.setText(rs.getString(1));
+				jTextField2.setText(String.valueOf(rs.getInt(2))+" Nos.");
+				jTextField3.setText(String.valueOf(rs.getDouble(3))+" Grams");
+			}else
+			{	
+			JOptionPane.showMessageDialog(null, "No Item Present in "+loc);
+			location_wise_count.main(null);
+			}
+			if( loc.equals("TRAY 01") || loc.equals("TRAY 02") || loc.equals("TRAY 03") || loc.equals("TRAY 06") || loc.equals("TRAY 07") || loc.equals("TRAY 08") || loc.equals("TRAY 09") || loc.equals("TRAY 10") || loc.equals("TRAY 11") || loc.equals("TRAY 12") || loc.equals("TRAY 13") || loc.equals("TRAY 14") || loc.equals("TRAY 15") || loc.equals("TRAY 16") || loc.equals("TRAY 17") || loc.equals("TRAY 20") || loc.equals("TRAY 23") || loc.equals("TRAY 24") || loc.equals("TRAY 25") || loc.equals("TRAY 25") || loc.equals("TRAY 26") || loc.equals("TRAY 27") || loc.equals("TRAY 28") || loc.equals("TRAY 29") || loc.equals("TRAY 30") || loc.equals("TRAY 31") || loc.equals("TRAY 32") || loc.equals("TRAY 33") || loc.equals("TRAY 34") || loc.equals("TRAY 35") || loc.equals("TRAY 34") || loc.equals("TRAY 35") || loc.equals("TRAY 36") || loc.equals("TRAY 37") || loc.equals("TRAY 38"))
+			{	
+			if(rs1.next())
+			{
+				jTextField4.setText(String.valueOf(rs1.getInt(1))+" Nos.");
+			}
+			else
+			{
+				frame.dispose();
+			}
+			}
+			else {
+				jTextField4.setEnabled(false);
+				jTextField4.hide();
+				jLabel4.hide();		
+			}
+			if(rs2 != null)
+			{
+				jTable1.setModel(DbUtils.resultSetToTableModel(rs2));
+			}
 		} catch (Exception e) {
 			
 			e.printStackTrace();
@@ -187,30 +252,71 @@ public class location_wise_count_report extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
 
         pack();
-    }// </editor-fold>                        
+    }// </editor-fold>  
+    private static void exit()
+    {
+    	
+    }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
+        this.dispose();
+        location_wise_count.main(null);
     }                                        
 
     private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {                                       
-        // TODO add your handling code here:
+    	if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+        {
+        	this.dispose();
+            location_wise_count.main(null);
+        }else if(evt.getKeyCode() == KeyEvent.VK_BACKSPACE)
+        {
+        	this.dispose();
+            location_wise_count.main(null);
+        }    
     }                                      
 
     private void jTextField2KeyPressed(java.awt.event.KeyEvent evt) {                                       
-        // TODO add your handling code here:
+    	if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+        {
+        	this.dispose();
+            location_wise_count.main(null);
+        }else if(evt.getKeyCode() == KeyEvent.VK_BACKSPACE)
+        {
+        	this.dispose();
+            location_wise_count.main(null);
+        } 
     }                                      
 
     private void jTextField3KeyPressed(java.awt.event.KeyEvent evt) {                                       
-        // TODO add your handling code here:
+    	if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+        {
+        	this.dispose();
+            location_wise_count.main(null);
+        }else if(evt.getKeyCode() == KeyEvent.VK_BACKSPACE)
+        {
+        	this.dispose();
+            location_wise_count.main(null);
+        } 
     }                                      
 
     private void jTextField4KeyPressed(java.awt.event.KeyEvent evt) {                                       
-        // TODO add your handling code here:
+    	if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+        {
+        	this.dispose();
+            location_wise_count.main(null);
+        }else if(evt.getKeyCode() == KeyEvent.VK_BACKSPACE)
+        {
+        	this.dispose();
+            location_wise_count.main(null);
+        } 
     }                                      
 
     private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {                                    
-        // TODO add your handling code here:
+    	if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+        {
+        	this.dispose();
+            location_wise_count.main(null);
+        } 
     }                                   
 
     /**
@@ -244,7 +350,21 @@ public class location_wise_count_report extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
             	loc = temp;
-                new location_wise_count_report().setVisible(true);
+            	checks();
+            	if(check == 0)
+				{
+            		new location_wise_count_report().setVisible(true);
+            		datafill();
+				}
+				else
+				{	
+					check = 0;
+					new location_wise_count_report().setVisible(false);
+					datafill();
+					
+				}
+            	
+                
             }
         });
     }
@@ -254,13 +374,14 @@ public class location_wise_count_report extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private static javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private static javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private static javax.swing.JTextField jTextField1;
+    private static javax.swing.JTextField jTextField2;
+    private static javax.swing.JTextField jTextField3;
+    private static javax.swing.JTextField jTextField4;
     public static String loc;
+    public static int check =0;
     // End of variables declaration                   
 }
