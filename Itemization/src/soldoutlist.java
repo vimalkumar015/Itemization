@@ -155,7 +155,31 @@ public class soldoutlist extends javax.swing.JFrame {
             {
                 e.printStackTrace();
             }
-        }else if(temp == "None")
+        }else if(temp == "Coveing")        	
+        {
+        	jButton1.setEnabled(true);
+        	try
+        	{
+        		Class.forName("com.mysql.jdbc.Driver");
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
+                PreparedStatement pst = conn.prepareStatement("SELECT `stocklist`.`id` AS ID, `stocklist`.`product_name` AS name,`stocklist`.`Purity` AS Purity,`stocklist`.`location` AS LOCATION,`stocklist`.`gross_weight` AS `GROSS WEIGHT`, date(`stocklist`.`date&time`) AS `ENTRY CREATED ON`,date(`soldoutdate`.`sold date`) AS `SOLD ON` FROM stocklist JOIN soldoutdate ON stocklist.id = soldoutdate.id WHERE stocklist.Purity = \"Covering\" AND stocklist.flag = 0");
+                PreparedStatement pst1 = conn.prepareStatement("SELECT sum(`gross_weight`) FROM `stocklist` where `Purity` = \"Covering\" and `flag` = 0");
+                ResultSet rs = pst.executeQuery();
+                ResultSet rs1 = pst1.executeQuery();
+                if(rs != null)
+                {
+                    jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+                }
+                if(rs1.next())
+                {
+                	textField.setText(String.valueOf(rs1.getDouble(1))+" Grams" );
+                }
+        	}catch(Exception e)
+        	{
+        		e.printStackTrace();
+        	}
+        }
+        else if(temp == "None")
         {
         	DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             model.setRowCount(0);
@@ -207,7 +231,7 @@ public class soldoutlist extends javax.swing.JFrame {
         	public void keyPressed(KeyEvent e) {
         	}
         });
-        comboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"None", "All", "Gold", "Silver"}));
+        comboBox.setModel(new DefaultComboBoxModel(new String[] {"None", "All", "Gold", "Silver", "Covering"}));
         comboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);

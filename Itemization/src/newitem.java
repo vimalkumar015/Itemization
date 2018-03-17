@@ -396,7 +396,7 @@ public class newitem {
 				}
 			}
 		});
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"", "Regular", "KDM", "Silver", "92M-Silver"}));
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"", "Regular", "KDM", "Silver", "92M-Silver", "Covering"}));
 
 		GroupLayout groupLayout = new GroupLayout(frmItemizationNew.getContentPane());
 		groupLayout.setHorizontalGroup(

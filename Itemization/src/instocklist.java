@@ -158,7 +158,30 @@ public class instocklist extends javax.swing.JFrame {
             {
                 e.printStackTrace();
             }
-        }else if(temp == "None")
+        }else if(temp == "Covering")
+        {
+        	jButton1.setEnabled(true);
+        	try {
+        		Class.forName("com.mysql.jdbc.Driver");
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gdlashmi?useSSL=false","root","");
+                PreparedStatement pst = conn.prepareStatement("SELECT `id` as ID, `product_name` as PRODUCT, `Purity` as PURITY, `location` as LOCATION, `gross_weight` as `GROSS WEIGHT`, date(`date&time`) as `CREATED ON` FROM `stocklist` where `Purity` = \"Covering\" and `flag` = 1");
+                PreparedStatement pst1 = conn.prepareStatement("SELECT sum(`gross_weight`) FROM `stocklist` where `Purity` = \"Covering\" and `flag` = 1");
+                ResultSet rs = pst.executeQuery();
+                ResultSet rs1 = pst1.executeQuery();
+                if(rs != null)
+                {
+                    jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+                }
+                if(rs1.next())
+                {
+                	textField.setText(String.valueOf(rs1.getDouble(1))+" Grams" );
+                }
+        	} catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+        else if(temp == "None")
         {
         	DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             model.setRowCount(0);
@@ -209,7 +232,7 @@ public class instocklist extends javax.swing.JFrame {
         lblType.setFont(new Font("Tahoma", Font.PLAIN, 13));
         
         comboBox = new javax.swing.JComboBox<>();
-        comboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"None", "All", "Gold", "Silver"}));
+        comboBox.setModel(new DefaultComboBoxModel(new String[] {"None", "All", "Gold", "Silver", "Covering"}));
         comboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);

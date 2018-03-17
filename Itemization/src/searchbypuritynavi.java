@@ -112,28 +112,51 @@ public class searchbypuritynavi {
 				frmItemizationSearch.dispose();
 			}
 		});
+		
+		JButton btnCovering = new JButton("Covering");
+		btnCovering.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent evt) {
+				if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+				{
+					searchbycoveringpurity.main(null);
+					frmItemizationSearch.dispose();
+				}else if(evt.getKeyCode() == KeyEvent.VK_BACK_SPACE)
+				{
+					search.main(null);
+					frmItemizationSearch.dispose();
+				}
+			}
+		});
+		btnCovering.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				searchbycoveringpurity.main(null);
+				frmItemizationSearch.dispose();
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(frmItemizationSearch.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(91)
-							.addComponent(btnGold, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-							.addGap(59)
-							.addComponent(btnSilver, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(165)
-							.addComponent(btnBack, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(110, Short.MAX_VALUE))
+					.addGap(36)
+					.addComponent(btnGold, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+					.addGap(42)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(btnBack, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+							.addComponent(btnSilver, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+							.addGap(37)
+							.addComponent(btnCovering, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(52, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(66)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(btnSilver, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnGold, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnGold, GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+						.addComponent(btnSilver, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnCovering, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE))
 					.addGap(56)
 					.addComponent(btnBack)
 					.addContainerGap(82, Short.MAX_VALUE))
@@ -142,5 +165,4 @@ public class searchbypuritynavi {
 		frmItemizationSearch.setBounds(100, 100, 450, 300);
 		frmItemizationSearch.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-
 }
