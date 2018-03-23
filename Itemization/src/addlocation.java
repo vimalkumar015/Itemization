@@ -198,7 +198,7 @@ public class addlocation {
 		JLabel lblLocationType = new JLabel("Location Type");
 		
 		comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "GOLD", "SILVER"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "GOLD", "SILVER", "Covering"}));
 		
 		JLabel lblMaximumCount = new JLabel("Maximum Count");
 		
